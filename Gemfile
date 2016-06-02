@@ -17,10 +17,11 @@ group :production do
   gem 'rollbar'
 end
 
-group :development, :test do
-  gem 'byebug'
-end
-
 group :development do
   gem 'web-console', '~> 2.0'
+end
+
+group :development, :test do
+  gem 'byebug'
+  gem 'annotate', github: 'ctran/annotate_models'
 end
