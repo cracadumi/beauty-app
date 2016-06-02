@@ -1,0 +1,46 @@
+inherit_from: .rubocop_todo.yml
+
+require: rubocop-rspec
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+      - 'db/schema.rb'
+      - 'bin/**/*'
+      - 'db/migrate/**/*'
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/AlignHash:
+  EnforcedHashRocketStyle: table
+
+Metrics/ClassLength:
+  CountComments: false
+  Exclude:
+    - 'app/controllers/api/v1/**/*'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/models/ability.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/models/ability.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/models/ability.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/models/ability.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/models/ability.rb'
