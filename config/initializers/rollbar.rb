@@ -4,11 +4,6 @@ Rollbar.configure do |config|
 
   config.access_token = '016a68e4eb4f4c659d6ce1b2622cc66b'
 
-  # Here we'll disable in 'test':
-  unless Rails.env.production?
-    config.enabled = false
-  end
-
   # By default, Rollbar will try to call the `current_user` controller method
   # to fetch the logged-in user object, and then call that object's `id`,
   # `username`, and `email` methods to fetch those properties. To customize:
@@ -54,4 +49,4 @@ Rollbar.configure do |config|
   # setup for Heroku. See:
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
   config.environment = ENV['ROLLBAR_ENV'] || Rails.env
-end
+end if Rails.env.production?
