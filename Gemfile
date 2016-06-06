@@ -14,6 +14,8 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 gem 'cancancan', '~> 1.10'
 gem 'doorkeeper'
+gem 'apipie-rails', github: 'Apipie/apipie-rails'
+gem 'maruku'
 
 group :production do
   gem 'rails_12factor'

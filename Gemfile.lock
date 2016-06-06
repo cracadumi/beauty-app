@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Apipie/apipie-rails.git
+  revision: 296c097f9acb951149d3a67db69b84eb216bdd7e
+  specs:
+    apipie-rails (0.3.6)
+      json
+
+GIT
   remote: git://github.com/activeadmin/activeadmin.git
   revision: 1b5c9259c4cfe183039498e0e1eb2c6c146d2273
   specs:
@@ -138,6 +145,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    maruku (0.7.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -264,6 +272,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   annotate!
+  apipie-rails!
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
@@ -274,6 +283,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   letter_opener
+  maruku
   newrelic_rpm
   pg (~> 0.15)
   rails (= 4.2.5.1)
