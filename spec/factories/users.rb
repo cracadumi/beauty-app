@@ -1,43 +1,12 @@
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  enum role: { user: 0, beautician: 1, admin: 2 }
-  enum sex: { male: 1, female: 2, other: 3 }
-
-  has_many :tokens, class_name: 'Doorkeeper::AccessToken',
-           foreign_key: 'resource_owner_id', dependent: :destroy
-
-  validates :name, presence: true
-  validates :surname, presence: true
-  validates :username, format: {
-      with: /\A@\S+\z/
-  }, if: 'username.present?'
-  validates :phone_number, format: {
-      with: /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
-  }, if: 'phone_number.present?'
-
-  def display_name
-    if name.present? || surname.present?
-      return [name, surname].select(&:present?).join(' ')
-    elsif username.present?
-      return username
+FactoryGirl.define do
+  factory :user do
+    sequence :email do |n|
+      "user_#{n}@mysite.com"
     end
-    email
-  end
-
-  def full_name
-    [name, surname].select(&:present?).join(' ')
-  end
-
-  def send_welcome_message
-    UserMailer.registered(id).deliver_now
-  end
-
-  def channel
-    "private-#{id}"
+    password 'password'
+    name 'Alex'
+    surname 'Pushkin'
+    role :user
   end
 end
 
