@@ -1,12 +1,14 @@
 ActiveAdmin.register User do
   permit_params :name, :surname, :username, :role, :sex, :bio, :phone_number,
                 :dob_on, :profile_picture_url, :active, :archived, :latitude,
-                :longitude, :available, :rating, :facebook_id
+                :longitude, :available, :rating, :facebook_id, :password,
+                :password_confirmation
 
   index do
     selectable_column
     id_column
     column :full_name
+    column :email
     column :role
     actions
   end
@@ -21,6 +23,7 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs 'User Details' do
+      f.input :email
       f.input :name
       f.input :surname
       f.input :username
