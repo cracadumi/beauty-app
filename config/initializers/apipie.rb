@@ -9,13 +9,20 @@ Apipie.configure do |config|
   config.default_version = 'V1'
   config.validate = true
   config.app_info['V1'] = <<-EOS
-    ## OAuth authorisation
-    Just send POST request to **/oauth/token** with parameters
+    ## OAuth authorisation by email
+    POST **/oauth/token** with parameters
     *   grant_type=password
     *   username – User email
     *   password – User password
 
-    In response you'll receive access token and refresh token, like that:
+    ## OAuth authorisation by FB token
+    POST **/oauth/token** with parameters
+    *   grant_type=assertion
+    *   assertion – FB access token
+
+    Required permissions: **email**, **user_about_me**, **user_birthday**.
+
+    Response example:
     *   {
     *     "access_token" : "93eea114d283b416e2e9eb152fcb99b46392a1c635ab971753",
     *     "created_at" : 1455882679,
