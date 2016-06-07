@@ -24,7 +24,7 @@ module Api
         {
           "name": "Name",
           "surname": "Surname",
-          "username": null,
+          "username": "@adminoff",
           "role": "user",
           "email": "em6@il.ru",
           "sex": "other",
