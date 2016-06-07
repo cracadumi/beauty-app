@@ -90,6 +90,40 @@ describe User, type: :model do
       expect(result).to eq('')
     end
   end
+
+  describe '#add_dog_to_username' do
+    context 'username without @' do
+      subject { build(:user, username: 'gnom') }
+
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
+
+      it 'adds @ to username before validate' do
+        subject.valid?
+
+        result = subject.username
+
+        expect(result).to eq('@gnom')
+      end
+    end
+
+    context 'username with @' do
+      subject { build(:user, username: '@gnom') }
+
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
+
+      it 'save @ in username' do
+        subject.valid?
+
+        result = subject.username
+
+        expect(result).to eq('@gnom')
+      end
+    end
+  end
 end
 
 # == Schema Information
