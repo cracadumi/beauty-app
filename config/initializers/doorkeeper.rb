@@ -6,7 +6,8 @@ Doorkeeper.configure do
 
   resource_owner_from_credentials do |_routes|
     if params[:grant_type] == 'password'
-      u = User.find_for_database_authentication(email: params[:username])
+      u = User.find_for_database_authentication(email: params[:username],
+                                                archived: false)
       if params[:username].present? && u && u.valid_password?(params[:password])
         u
       end
