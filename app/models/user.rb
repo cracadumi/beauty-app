@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
     with: EMAIL_REGEX
   }, if: 'phone_number.present?'
 
+  before_validation :add_dog_to_username
+
   def display_name
     if name.present? || surname.present?
       return [name, surname].select(&:present?).join(' ')
@@ -35,11 +37,16 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_message
-    UserMailer.registered(id).deliver_now
+    UserMailer.welcome_beautician(id).deliver_now if beautician?
+    UserMailer.welcome_user(id).deliver_now if user?
   end
 
   def channel
     "private-#{id}"
+  end
+
+  def add_dog_to_username
+    self.username = "@#{username}" if username.present? && !(username =~ /\A@/)
   end
 end
 
