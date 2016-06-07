@@ -32,6 +32,15 @@ GIT
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
 
+GIT
+  remote: git://github.com/doorkeeper-gem/doorkeeper-grants_assertion.git
+  revision: f4391f2f07d96845db0d9dd6889f58d4bd4d23bb
+  branch: master
+  specs:
+    doorkeeper-grants_assertion (0.0.1)
+      doorkeeper (>= 2.0)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -290,6 +299,7 @@ DEPENDENCIES
   database_cleaner
   devise
   doorkeeper
+  doorkeeper-grants_assertion!
   factory_girl_rails (~> 4.0)
   jbuilder (~> 2.0)
   jquery-rails

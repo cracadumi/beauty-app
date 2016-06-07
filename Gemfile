@@ -14,6 +14,8 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 gem 'cancancan', '~> 1.10'
 gem 'doorkeeper'
+gem 'doorkeeper-grants_assertion',
+    github: 'doorkeeper-gem/doorkeeper-grants_assertion', branch: 'master'
 gem 'apipie-rails', github: 'Apipie/apipie-rails'
 gem 'maruku'
 
