@@ -1,3 +1,3 @@
 json.extract! user, :name, :surname, :username, :role, :email, :sex, :bio,
-             :phone_number, :dob_on, :profile_picture_url, :active, :archived,
-             :latitude, :longitude, :available, :rating
+              :phone_number, :dob_on, :profile_picture_url, :active, :archived,
+              :latitude, :longitude, :available, :rating
