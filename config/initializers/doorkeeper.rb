@@ -8,11 +8,23 @@ Doorkeeper.configure do
     if params[:grant_type] == 'password'
       u = User.find_for_database_authentication(email: params[:username])
       if params[:username].present? && u && u.valid_password?(params[:password])
-        u.tap do |e|
-          # e.update_attributes os: params[:os],
-          #                     push_token: params[:push_token]
-        end
+        u
       end
+    end
+  end
+
+  resource_owner_from_assertion do
+    facebook = URI.parse('https://graph.facebook.com/me?access_token=' +
+                             params[:assertion])
+    response = Net::HTTP.get_response(facebook)
+    user_data = JSON.parse(response.body)
+    Rails.logger.info "user_data=#{user_data.inspect}"
+
+    if user_data['error'].present?
+      Rails.logger.info 'ERROR'
+      false
+    else
+      FbUserService.find_or_create_by_facebook_id(user_data)
     end
   end
 
@@ -120,7 +132,8 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.2
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
-  # grant_flows %w(authorization_code client_credentials)
+  grant_flows %w(assertion authorization_code implicit password
+                 client_credentials)
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
