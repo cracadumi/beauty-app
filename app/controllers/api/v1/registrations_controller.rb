@@ -8,24 +8,45 @@ module Api
       api! 'Register user'
       description <<-EOS
         ## Description
-        Users registration
+        Users registration.
+        Return code 200 and usr data if user successfuly created.
       EOS
       param :user, Hash, desc: 'User info', required: true do
+        param :role, %w(beautician user), desc: 'Sex. Other by default.'
         param :email, String, desc: 'Email', required: true
         param :password, String, desc: 'Password', required: true
         param :name, String, desc: 'Name', required: true
         param :surname, String, desc: 'Surname', required: true
         param :username, String, desc: 'Username. Starts with @, without spaces'
-        param :role, %w(beautician user), desc: 'Sex. Other by default.'
         param :sex, %w(male female other), desc: 'Role. User by default.'
       end
+      example <<-EOS
+        {
+          "name": "Name",
+          "surname": "Surname",
+          "username": null,
+          "role": "user",
+          "email": "em6@il.ru",
+          "sex": "other",
+          "bio": null,
+          "phone_number": null,
+          "dob_on": null,
+          "profile_picture_url": null,
+          "active": true,
+          "archived": false,
+          "latitude": null,
+          "longitude": null,
+          "available": false,
+          "rating": 0
+        }
+      EOS
 
       def create
         @user = User.new(user_params)
         # user can't register as admin via API
         @user.role = :user if @user.admin?
         @user.active = true unless @user.beautician?
-        @user.save
+        @user.send_welcome_message if @user.save
         respond_with @user
       end
 
