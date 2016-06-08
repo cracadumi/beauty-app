@@ -23,7 +23,8 @@ class FbUserService
                         dob_on: dob(data['birthday']), email: data['email'],
                         name: data['first_name'], surname: data['last_name'],
                         sex: sex(data['gender']), active: true,
-                        password: Devise.friendly_token.first(6))
+                        password: Devise.friendly_token.first(6),
+                        remote_profile_picture_url: fb_image_url(data['id']))
     user.send_welcome_message if user.persisted?
     user
   end
@@ -34,5 +35,9 @@ class FbUserService
 
   def self.sex(sex)
     User.sexes.include?(sex) ? sex : nil
+  end
+
+  def self.fb_image_url(fb_id)
+    "https://graph.facebook.com/#{fb_id}/picture?type=large"
   end
 end
