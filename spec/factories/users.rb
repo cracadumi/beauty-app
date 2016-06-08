@@ -35,7 +35,7 @@ end
 #  bio                    :text
 #  phone_number           :string
 #  dob_on                 :date
-#  profile_picture_url    :string
+#  profile_picture        :string
 #  active                 :boolean          default(FALSE), not null
 #  archived               :boolean          default(FALSE), not null
 #  latitude               :float

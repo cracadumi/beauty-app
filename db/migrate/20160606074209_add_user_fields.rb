@@ -8,7 +8,7 @@ class AddUserFields < ActiveRecord::Migration
     add_column :users, :bio, :text
     add_column :users, :phone_number, :string
     add_column :users, :dob_on, :date
-    add_column :users, :profile_picture_url, :string
+    add_column :users, :profile_picture, :string
     add_column :users, :active, :boolean, null: false, default: false
     add_column :users, :archived, :boolean, null: false, default: false
     add_column :users, :latitude, :float

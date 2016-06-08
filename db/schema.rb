@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160607084342) do
     t.text     "bio"
     t.string   "phone_number"
     t.date     "dob_on"
-    t.string   "profile_picture_url"
+    t.string   "profile_picture"
     t.boolean  "active",                 default: false, null: false
     t.boolean  "archived",               default: false, null: false
     t.float    "latitude"
