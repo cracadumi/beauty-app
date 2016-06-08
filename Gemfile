@@ -18,6 +18,8 @@ gem 'doorkeeper-grants_assertion',
     github: 'doorkeeper-gem/doorkeeper-grants_assertion', branch: 'master'
 gem 'apipie-rails', github: 'Apipie/apipie-rails'
 gem 'maruku'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'rmagick'
 
 group :production do
   gem 'rails_12factor'
