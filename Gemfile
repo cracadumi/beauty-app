@@ -20,6 +20,7 @@ gem 'apipie-rails', github: 'Apipie/apipie-rails'
 gem 'maruku'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'rmagick'
+gem 'fog-aws'
 
 group :production do
   gem 'rails_12factor'
