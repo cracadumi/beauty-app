@@ -2,10 +2,8 @@ CarrierWave.configure do |config|
   config.cache_dir = File.join(Rails.root, 'tmp', 'uploads')
   case Rails.env.to_sym
     when :development
-      config.storage = :file
       config.root = File.join(Rails.root, 'public')
     when :production
-      config.storage = :fog
       config.fog_provider = 'fog/aws'
       config.fog_credentials = {
           provider: 'AWS',

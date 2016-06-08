@@ -18,9 +18,9 @@ gem 'doorkeeper-grants_assertion',
     github: 'doorkeeper-gem/doorkeeper-grants_assertion', branch: 'master'
 gem 'apipie-rails', github: 'Apipie/apipie-rails'
 gem 'maruku'
+gem 'fog', require: 'fog/aws'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'rmagick'
-gem 'fog-aws'
 
 group :production do
   gem 'rails_12factor'
