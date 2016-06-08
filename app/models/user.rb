@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  mount_uploader :profile_picture, AvatarUploader
+
   EMAIL_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
   enum role: { user: 0, beautician: 1, admin: 2 }
@@ -75,7 +77,7 @@ end
 #  bio                    :text
 #  phone_number           :string
 #  dob_on                 :date
-#  profile_picture_url    :string
+#  profile_picture        :string
 #  active                 :boolean          default(FALSE), not null
 #  archived               :boolean          default(FALSE), not null
 #  latitude               :float
