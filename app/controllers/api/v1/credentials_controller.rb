@@ -42,7 +42,7 @@ module Api
       description <<-EOS
         ## Description
         Updates current user
-        Returns code 200 if user successfully updated.
+        Returns code 204 if user successfully updated.
       EOS
       param :user, Hash, desc: 'User info', required: true do
         param :email, String, desc: 'Email', required: true
