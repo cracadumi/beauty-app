@@ -27,7 +27,6 @@ module Api
           "dob_on": "2011-03-02",
           "profile_picture_url": "/uploads/user/profile_picture/2/eye22n.jpeg",
           "active": true,
-          "archived": false,
           "latitude": 1.123,
           "longitude": 2.345,
           "available": false,
