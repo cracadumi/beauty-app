@@ -33,10 +33,6 @@ module Api
           "phone_number": null,
           "dob_on": null,
           "profile_picture_url": null,
-          "active": true,
-          "archived": false,
-          "latitude": null,
-          "longitude": null,
           "available": false,
           "rating": 0
         }
