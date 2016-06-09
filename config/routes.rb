@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :passwords, only: :create
       end
       get '/me' => 'credentials#show'
+      delete '/me' => 'credentials#destroy'
       resources :users, only: [:show] do
         collection do
           get :beauticians

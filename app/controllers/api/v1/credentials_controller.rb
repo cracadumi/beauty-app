@@ -61,6 +61,19 @@ module Api
         respond_with @user
       end
 
+      api :DELETE, '/v1/me', 'Archive account'
+      description <<-EOS
+        ## Description
+        Updates current user
+        Returns code 204 if user successfully archived.
+      EOS
+
+      def destroy
+        @user.update_attribute(:archived, true)
+        @user.tokens.update_all revoked_at: Time.zone.now
+        respond_with @user
+      end
+
       private
 
       def user_params
