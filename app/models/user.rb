@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   }, if: 'phone_number.present?'
 
   before_validation :add_dog_to_username
+  after_save :set_inactive, if: 'archived? && active?'
 
   def display_name
     if name.present? || surname.present?
@@ -49,6 +50,10 @@ class User < ActiveRecord::Base
 
   def add_dog_to_username
     self.username = "@#{username}" if username.present? && !(username =~ /\A@/)
+  end
+
+  def set_inactive
+    update_attribute :active, false if archived? && active?
   end
 end
 

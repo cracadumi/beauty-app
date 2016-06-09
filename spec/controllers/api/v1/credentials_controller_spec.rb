@@ -56,7 +56,7 @@ describe Api::V1::CredentialsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:user) { create :user }
+    let(:user) { create :user, active: true }
     let(:token) { create :access_token, resource_owner_id: user.id }
 
     before do
@@ -69,6 +69,11 @@ describe Api::V1::CredentialsController, type: :controller do
     it 'archives user' do
       user.reload
       expect(user).to be_archived
+    end
+
+    it 'set active to false' do
+      user.reload
+      expect(user).not_to be_active
     end
 
     it 'revokes user\'s token' do
