@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :profile_picture, AvatarUploader
 
-  EMAIL_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
+  PHONE_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     with: /\A@\S+\z/
   }, if: 'username.present?'
   validates :phone_number, format: {
-    with: EMAIL_REGEX
+    with: PHONE_REGEX
   }, if: 'phone_number.present?'
 
   before_validation :add_dog_to_username
