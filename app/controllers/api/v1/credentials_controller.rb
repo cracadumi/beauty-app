@@ -15,6 +15,7 @@ module Api
       EOS
       example <<-EOS
         {
+          "id": 10,
           "name": "Name",
           "surname": "Sername",
           "username": "@username",
