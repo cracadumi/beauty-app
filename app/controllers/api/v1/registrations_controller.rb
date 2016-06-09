@@ -12,16 +12,17 @@ module Api
         Return code 200 and usr data if user successfuly created.
       EOS
       param :user, Hash, desc: 'User info', required: true do
-        param :role, %w(beautician user), desc: 'Sex. Other by default.'
+        param :role, %w(beautician user), desc: 'Role. User by default.'
         param :email, String, desc: 'Email', required: true
         param :password, String, desc: 'Password', required: true
         param :name, String, desc: 'Name', required: true
         param :surname, String, desc: 'Surname', required: true
         param :username, String, desc: 'Username. Starts with @, without spaces'
-        param :sex, %w(male female other), desc: 'Role. User by default.'
+        param :sex, %w(male female other), desc: 'Sex. Other by default.'
       end
       example <<-EOS
         {
+          "id": 10,
           "name": "Name",
           "surname": "Surname",
           "username": "@adminoff",
