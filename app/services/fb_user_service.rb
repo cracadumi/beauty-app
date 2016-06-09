@@ -19,14 +19,19 @@ class FbUserService
   end
 
   def self.create_new(data)
-    user = User.create!(facebook_id: data['id'], bio: data['bio'],
-                        dob_on: dob(data['birthday']), email: data['email'],
-                        name: data['first_name'], surname: data['last_name'],
-                        sex: sex(data['gender']), active: true,
-                        password: Devise.friendly_token.first(6),
-                        remote_profile_picture_url: fb_image_url(data['id']))
+    user = User.create!(new_user_params(data))
     user.send_welcome_message if user.persisted?
     user
+  end
+
+  def self.new_user_params(data)
+    {
+      facebook_id: data['id'], bio: data['bio'], dob_on: dob(data['birthday']),
+        email: data['email'], name: data['first_name'],
+        surname: data['last_name'], sex: sex(data['gender']), active: true,
+        password: Devise.friendly_token.first(6),
+        remote_profile_picture_url: fb_image_url(data['id'])
+    }
   end
 
   def self.dob(date)
