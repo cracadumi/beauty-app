@@ -45,12 +45,15 @@ module Api
       EOS
       param :user, Hash, desc: 'User info', required: true do
         param :email, String, desc: 'Email', required: true
-        param :password, String, desc: 'Password', required: true
         param :name, String, desc: 'Name', required: true
         param :surname, String, desc: 'Surname', required: true
-        param :phone, /\+?\d{10,11}/, desc: 'Phone'
-        param :notification, :bool, desc: 'Notification'
-        param :newsletter, :bool, desc: 'Newsletter'
+        param :username, String, desc: 'Username'
+        param :sex, %w(male female other), desc: 'Sex. Other by default.'
+        param :bio, String, desc: 'Bio'
+        param :phone_number, User::PHONE_REGEX, desc: 'Phone'
+        param :dob_on, String, desc: 'Date of birth'
+        param :profile_picture, ActionDispatch::Http::UploadedFile,
+              desc: 'Photo image'
       end
 
       def update
@@ -61,8 +64,9 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :name, :surname,
-                                     :phone, :notification, :newsletter)
+        params.require(:user)
+              .permit(:email, :name, :surname, :username, :sex,
+                      :bio, :phone_number, :dob_on, :profile_picture)
       end
 
       def set_user
