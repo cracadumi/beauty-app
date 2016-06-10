@@ -12,4 +12,11 @@ class UserMailer < ApplicationMailer
          content_type: 'text/html',
          subject: 'Welcome user')
   end
+
+  def verified_beautician(user_id)
+    @user = User.find_by(id: user_id)
+    mail(to: @user.email,
+         content_type: 'text/html',
+         subject: 'You are now a beautician')
+  end
 end

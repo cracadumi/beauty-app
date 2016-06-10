@@ -124,6 +124,26 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#verify' do
+    context 'archived user' do
+      let(:user) { create(:user, active: false, archived: true) }
+
+      it 'returns error' do
+        user.verify
+        user.reload
+
+        expect(user.errors).to be_present
+      end
+
+      it 'doesn\'t verify user' do
+        user.verify
+        user.reload
+
+        expect(user).not_to be_active
+      end
+    end
+  end
 end
 
 # == Schema Information

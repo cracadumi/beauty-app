@@ -48,6 +48,12 @@ class User < ActiveRecord::Base
     "private-#{id}"
   end
 
+  def verify
+    self.errors.add :active, 'User archived' and return if archived?
+    update_attribute :active, true
+    UserMailer.verified_beautician(id).deliver_now
+  end
+
   def add_dog_to_username
     self.username = "@#{username}" if username.present? && !(username =~ /\A@/)
   end
