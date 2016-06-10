@@ -19,6 +19,7 @@ module Api
         param :surname, String, desc: 'Surname', required: true
         param :username, String, desc: 'Username. Starts with @, without spaces'
         param :sex, %w(male female other), desc: 'Sex. Other by default.'
+        param :facebook_token, String, desc: 'Facebook token to sign up with FB'
       end
       example <<-EOS
         {
@@ -49,8 +50,9 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:role, :email, :password, :name, :surname,
-                                     :username, :sex, :language_id)
+        params.require(:user)
+              .permit(:role, :email, :password, :name, :surname, :username,
+                      :sex, :language_id, :facebook_token)
       end
     end
   end

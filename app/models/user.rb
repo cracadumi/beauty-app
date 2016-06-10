@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   PHONE_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
+  attr_accessor :facebook_token
+
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
 
@@ -22,9 +24,11 @@ class User < ActiveRecord::Base
   validates :phone_number, format: {
     with: PHONE_REGEX
   }, if: 'phone_number.present?'
+  validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
   before_validation :add_dog_to_username
   after_save :set_inactive, if: 'archived? && active?'
+  before_validation :check_fb_token, if: 'facebook_token.present?'
 
   def display_name
     if name.present? || surname.present?
@@ -60,6 +64,20 @@ class User < ActiveRecord::Base
 
   def set_inactive
     update_attribute :active, false if archived? && active?
+  end
+
+  def check_fb_token
+    facebook = URI.parse('https://graph.facebook.com/me?access_token=' +
+                             facebook_token)
+    response = Net::HTTP.get_response(facebook)
+    user_data = JSON.parse(response.body)
+    Rails.logger.info "user_data=#{user_data.inspect}"
+
+    if user_data['error']
+      errors.add(:fb_token, user_data['error'])
+    else
+      self.facebook_id = user_data['id']
+    end
   end
 end
 

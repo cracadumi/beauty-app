@@ -5,13 +5,9 @@ Doorkeeper.configure do
   orm :active_record
 
   resource_owner_from_credentials do |_routes|
-    if params[:grant_type] == 'password'
-      u = User.find_for_database_authentication(email: params[:username],
-                                                archived: false)
-      if params[:username].present? && u && u.valid_password?(params[:password])
-        u
-      end
-    end
+    u = User.find_for_database_authentication(email: params[:username],
+                                              archived: false)
+    u if u && u.valid_password?(params[:password])
   end
 
   resource_owner_from_assertion do
@@ -25,7 +21,8 @@ Doorkeeper.configure do
       Rails.logger.info 'ERROR'
       false
     else
-      FbUserService.find_or_create_by_facebook_id(user_data)
+      u = User.find_by(facebook_id: user_data[:id], archived: false)
+      u if u
     end
   end
 
