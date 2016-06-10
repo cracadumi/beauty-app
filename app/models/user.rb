@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
 
+  has_one :settings_beautician, dependent: :destroy
   has_many :tokens, class_name: 'Doorkeeper::AccessToken',
            foreign_key: 'resource_owner_id', dependent: :destroy
 
