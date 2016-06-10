@@ -1,5 +1,6 @@
 class SettingsBeautician < ActiveRecord::Base
   belongs_to :user
+  has_one :office_address, as: :addressable, class_name: 'Address'
 
   validates :user_id, presence: true
 end
