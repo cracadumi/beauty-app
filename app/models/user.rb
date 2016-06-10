@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     UserMailer.verified_beautician(id).deliver_now
   end
 
+  def self.collection_for_admin
+    order(:id).map { |u| ["#{u.id}. #{u.display_name}", u.id] }
+  end
+
   def add_dog_to_username
     self.username = "@#{username}" if username.present? && !(username =~ /\A@/)
   end
