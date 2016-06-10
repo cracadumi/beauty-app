@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   permit_params :name, :surname, :username, :role, :sex, :bio, :phone_number,
                 :dob_on, :profile_picture, :active, :archived, :latitude,
-                :longitude, :available, :rating, :facebook_id, :password,
+                :longitude, :rating, :facebook_id, :password,
                 :password_confirmation
 
   index do
@@ -37,7 +37,6 @@ ActiveAdmin.register User do
       f.input :archived
       f.input :latitude
       f.input :longitude
-      f.input :available
       f.input :rating
       f.input :facebook_id
       if f.object.new_record?

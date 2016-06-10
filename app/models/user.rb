@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def verify
-    self.errors.add :active, 'User archived' and return if archived?
+    errors.add(:active, 'User archived') && return if archived?
     update_attribute :active, true
     UserMailer.verified_beautician(id).deliver_now
   end
@@ -93,7 +93,6 @@ end
 #  archived               :boolean          default(FALSE), not null
 #  latitude               :float
 #  longitude              :float
-#  available              :boolean          default(FALSE), not null
 #  rating                 :integer          default(0), not null
 #  facebook_id            :string
 #

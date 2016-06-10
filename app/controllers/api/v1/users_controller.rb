@@ -43,7 +43,6 @@ module Api
           "active": true,
           "latitude": 1.123,
           "longitude": 2.345,
-          "available": false,
           "rating": 0
         }
       EOS

@@ -13,7 +13,6 @@ class AddUserFields < ActiveRecord::Migration
     add_column :users, :archived, :boolean, null: false, default: false
     add_column :users, :latitude, :float
     add_column :users, :longitude, :float
-    add_column :users, :available, :boolean, null: false, default: false
     add_column :users, :rating, :integer, null: false, default: 0
   end
 end

@@ -33,7 +33,6 @@ module Api
           "phone_number": null,
           "dob_on": null,
           "profile_picture_url": null,
-          "available": false,
           "rating": 0
         }
       EOS
