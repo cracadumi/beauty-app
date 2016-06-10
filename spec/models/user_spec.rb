@@ -178,6 +178,7 @@ end
 #  longitude              :float
 #  rating                 :integer          default(0), not null
 #  facebook_id            :string
+#  language_id            :integer
 #
 # Indexes
 #
