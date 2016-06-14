@@ -2,7 +2,7 @@ ActiveAdmin.register User do
   permit_params :email, :name, :surname, :username, :role, :sex, :bio,
                 :phone_number, :dob_on, :profile_picture, :active, :archived,
                 :latitude, :longitude, :rating, :facebook_id, :password,
-                :password_confirmation,
+                :password_confirmation, :language_id,
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
 
@@ -42,6 +42,7 @@ ActiveAdmin.register User do
       f.input :longitude
       f.input :rating
       f.input :facebook_id
+      f.input :language
       if f.object.new_record?
         f.input :password
         f.input :password_confirmation

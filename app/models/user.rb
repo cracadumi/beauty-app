@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
 
+  belongs_to :language
   has_one :settings_beautician, dependent: :destroy
   has_one :address, as: :addressable, class_name: 'Address',
           inverse_of: :addressable, dependent: :destroy
