@@ -1,6 +1,8 @@
 ActiveAdmin.register SettingsBeautician do
   permit_params :user_id, :instant_booking, :advance_booking, :mobile, :office,
-                :profession
+                :profession,
+                office_address_attributes: [:street, :postcode, :city, :state,
+                                            :country, :latitude, :longitude]
 
   index do
     selectable_column
@@ -29,6 +31,18 @@ ActiveAdmin.register SettingsBeautician do
       f.input :advance_booking
       f.input :mobile
       f.input :office
+      f.inputs 'Office address' do
+        f.semantic_fields_for :office_address, (f.object.office_address ||
+            f.object.build_office_address) do |meta_form|
+          meta_form.input :street
+          meta_form.input :postcode
+          meta_form.input :city
+          meta_form.input :state
+          meta_form.input :country, priority_countries: %w(FR GB DE)
+          meta_form.input :latitude
+          meta_form.input :longitude
+        end
+      end
     end
     f.actions
   end

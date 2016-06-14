@@ -17,7 +17,6 @@ describe Address, type: :model do
 end
 
 # rubocop:disable Metrics/LineLength
-
 # == Schema Information
 #
 # Table name: addresses
@@ -33,6 +32,7 @@ end
 #  longitude        :float
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  country          :string
 #
 # Indexes
 #

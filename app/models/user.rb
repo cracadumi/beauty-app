@@ -14,8 +14,12 @@ class User < ActiveRecord::Base
   enum sex: { male: 1, female: 2, other: 3 }
 
   has_one :settings_beautician, dependent: :destroy
+  has_one :address, as: :addressable, class_name: 'Address',
+          inverse_of: :addressable, dependent: :destroy
   has_many :tokens, class_name: 'Doorkeeper::AccessToken',
            foreign_key: 'resource_owner_id', dependent: :destroy
+
+  accepts_nested_attributes_for :settings_beautician, :address
 
   validates :name, presence: true
   validates :surname, presence: true
@@ -30,6 +34,7 @@ class User < ActiveRecord::Base
   before_validation :add_dog_to_username
   after_save :set_inactive, if: 'archived? && active?'
   before_validation :check_fb_token, if: 'facebook_token.present?'
+  after_create :create_settings_beautician, if: 'beautician?'
 
   def display_name
     if name.present? || surname.present?
@@ -82,6 +87,17 @@ class User < ActiveRecord::Base
       errors.add(:fb_token, user_data['error'])
     else
       self.facebook_id = user_data['id']
+    end
+  end
+
+  def create_settings_beautician
+    settings_beautician = build_settings_beautician
+    settings_beautician.save
+    if address
+      address_attributes = address.attributes.reject do |k|
+        %w(id addressable_id addressable_type).include? k
+      end
+      settings_beautician.build_office_address(address_attributes).save
     end
   end
 end

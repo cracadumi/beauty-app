@@ -21,6 +21,8 @@ gem 'maruku'
 gem 'fog', require: 'fog/aws'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'rmagick'
+gem 'geocoder'
+gem 'country_select'
 
 group :production do
   gem 'rails_12factor'

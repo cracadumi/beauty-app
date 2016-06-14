@@ -1,8 +1,10 @@
 ActiveAdmin.register User do
-  permit_params :name, :surname, :username, :role, :sex, :bio, :phone_number,
-                :dob_on, :profile_picture, :active, :archived, :latitude,
-                :longitude, :rating, :facebook_id, :password,
-                :password_confirmation
+  permit_params :email, :name, :surname, :username, :role, :sex, :bio,
+                :phone_number, :dob_on, :profile_picture, :active, :archived,
+                :latitude, :longitude, :rating, :facebook_id, :password,
+                :password_confirmation,
+                address_attributes: [:street, :postcode, :city, :state,
+                                     :country, :latitude, :longitude]
 
   index do
     selectable_column
@@ -23,6 +25,7 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs 'User Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :email
       f.input :name
       f.input :surname
@@ -42,6 +45,19 @@ ActiveAdmin.register User do
       if f.object.new_record?
         f.input :password
         f.input :password_confirmation
+      end
+      f.inputs 'Address' do
+        f.semantic_fields_for :address, (f.object.address ||
+            f.object.build_address) do |meta_form|
+          meta_form.semantic_errors(*f.object.errors.keys)
+          meta_form.input :street
+          meta_form.input :postcode
+          meta_form.input :city
+          meta_form.input :state
+          meta_form.input :country, priority_countries: %w(FR GB DE)
+          meta_form.input :latitude
+          meta_form.input :longitude
+        end
       end
     end
     f.actions

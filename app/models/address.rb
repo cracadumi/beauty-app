@@ -1,11 +1,26 @@
 class Address < ActiveRecord::Base
   belongs_to :addressable, polymorphic: true
 
+  geocoded_by :display_name
+
   validates :addressable, presence: true
+  validates :street, presence: true
+  validates :postcode, presence: true
+  validates :city, presence: true
+  validates :country, presence: true
+
+  after_validation :geocode
+
+  def display_name
+    [postcode, street, city, state].select(&:present?).join ', '
+  end
+
+  def coordinates
+    [latitude, longitude].select(&:present?).join ', '
+  end
 end
 
 # rubocop:disable Metrics/LineLength
-
 # == Schema Information
 #
 # Table name: addresses
@@ -21,6 +36,7 @@ end
 #  longitude        :float
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  country          :string
 #
 # Indexes
 #
