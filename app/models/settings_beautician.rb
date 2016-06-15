@@ -7,6 +7,10 @@ class SettingsBeautician < ActiveRecord::Base
   accepts_nested_attributes_for :office_address
 
   validates :user_id, presence: true
+
+  def self.collection_for_admin
+    order(:user_id, :id).map { |u| ["#{u.user.name}. #{u.id}", u.id] }
+  end
 end
 
 # == Schema Information
