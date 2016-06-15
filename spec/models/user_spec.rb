@@ -144,6 +144,36 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#create_settings_beautician' do
+    context 'after beautician created' do
+      let(:address) { build :address }
+      subject { create :user, role: :beautician, address: address }
+
+      it 'creates settings_beautician' do
+        result = subject.settings_beautician
+
+        expect(result).to be_persisted
+      end
+
+      it 'creates office address equal to user\'s address' do
+        result = subject.settings_beautician.office_address.display_name
+
+        expect(result).to eq(subject.address.display_name)
+      end
+
+      xit 'creates availabilities' do
+      end
+    end
+
+    context 'after user created' do
+      it 'doesn\'t create settings_beautician' do
+        result = subject.settings_beautician
+
+        expect(result).to be_nil
+      end
+    end
+  end
 end
 
 # == Schema Information
