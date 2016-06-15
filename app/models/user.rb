@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
       end
       settings_beautician.build_office_address(address_attributes).save
     end
+    # TODO: create availabilities
   end
 end
 

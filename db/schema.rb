@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615004051) do
+ActiveRecord::Schema.define(version: 20160615062158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 20160615004051) do
   end
 
   add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
+
+  create_table "availabilities", force: :cascade do |t|
+    t.integer  "settings_beautician_id"
+    t.integer  "day"
+    t.time     "starts_at",              default: '2000-01-01 09:00:00', null: false
+    t.time     "ends_at",                default: '2000-01-01 17:00:00', null: false
+    t.boolean  "working_day",            default: true,                  null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+  end
+
+  add_index "availabilities", ["settings_beautician_id"], name: "index_availabilities_on_settings_beautician_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
