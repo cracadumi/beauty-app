@@ -1,5 +1,6 @@
 class SubCategory < ActiveRecord::Base
   belongs_to :category
+  has_many :services, dependent: :destroy
 
   validates :category, presence: true
   validates :name, presence: true

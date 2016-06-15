@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
           inverse_of: :addressable, dependent: :destroy
   has_many :tokens, class_name: 'Doorkeeper::AccessToken',
            foreign_key: 'resource_owner_id', dependent: :destroy
+  has_many :services, dependent: :destroy
 
   accepts_nested_attributes_for :settings_beautician, :address
 
