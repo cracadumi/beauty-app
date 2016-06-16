@@ -1,6 +1,7 @@
 class Service < ActiveRecord::Base
   belongs_to :user
   belongs_to :sub_category
+  has_and_belongs_to_many :bookings
 
   validates :user, presence: true
   validates :sub_category, presence: true

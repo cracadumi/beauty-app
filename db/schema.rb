@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615062158) do
+ActiveRecord::Schema.define(version: 20160615120428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,34 @@ ActiveRecord::Schema.define(version: 20160615062158) do
   end
 
   add_index "availabilities", ["settings_beautician_id"], name: "index_availabilities_on_settings_beautician_id", using: :btree
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "status",                     default: 0,     null: false
+    t.integer  "user_id"
+    t.integer  "beautician_id"
+    t.datetime "datetime_at"
+    t.integer  "pay_to_beautician",          default: 0,     null: false
+    t.integer  "total_price",                default: 0,     null: false
+    t.text     "notes"
+    t.text     "unavailability_explanation"
+    t.boolean  "checked_in",                 default: false, null: false
+    t.datetime "expires_at"
+    t.boolean  "instant",                    default: false, null: false
+    t.datetime "reschedule_at"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "bookings", ["beautician_id"], name: "index_bookings_on_beautician_id", using: :btree
+  add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
+
+  create_table "bookings_services", force: :cascade do |t|
+    t.integer "booking_id"
+    t.integer "service_id"
+  end
+
+  add_index "bookings_services", ["booking_id"], name: "index_bookings_services_on_booking_id", using: :btree
+  add_index "bookings_services", ["service_id"], name: "index_bookings_services_on_service_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"

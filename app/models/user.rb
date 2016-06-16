@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
 
+  scope :users, -> { where role: roles[:user] }
+  scope :beauticians, -> { where role: roles[:beautician] }
+
   belongs_to :language
   has_one :settings_beautician, dependent: :destroy
   has_one :address, as: :addressable, class_name: 'Address',
@@ -26,10 +29,10 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :surname, presence: true
   validates :username, format: {
-    with: /\A@\S+\z/
+      with: /\A@\S+\z/
   }, if: 'username.present?'
   validates :phone_number, format: {
-    with: PHONE_REGEX
+      with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
