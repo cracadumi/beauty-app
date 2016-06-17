@@ -10,10 +10,16 @@ class Booking < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  after_create :set_expires_at
   after_save :set_prices
 
   def items
     services.map(&:name).join ', '
+  end
+
+  def set_expires_at
+    expires_at = instant? ? 3.minutes.from_now : 1.day.from_now
+    update_column :expires_at, expires_at
   end
 
   def set_prices
