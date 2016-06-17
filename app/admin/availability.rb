@@ -22,7 +22,8 @@ ActiveAdmin.register Availability do
 
   form do |f|
     f.inputs 'Availability Details' do
-      f.input :settings_beautician, as: :select,
+      f.input :settings_beautician,
+              as: :select,
               collection: SettingsBeautician.all.collection_for_admin
       f.input :day
       f.input :starts_at

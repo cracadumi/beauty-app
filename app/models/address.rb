@@ -21,6 +21,7 @@ class Address < ActiveRecord::Base
 end
 
 # rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: addresses

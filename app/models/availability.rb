@@ -5,6 +5,8 @@ class Availability < ActiveRecord::Base
   belongs_to :settings_beautician
 end
 
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: availabilities
@@ -22,3 +24,5 @@ end
 #
 #  index_availabilities_on_settings_beautician_id  (settings_beautician_id)
 #
+
+# rubocop:enable Metrics/LineLength
