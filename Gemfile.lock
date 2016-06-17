@@ -73,6 +73,9 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    activeadmin_settings_cached (2.0.1)
+      activeadmin
+      rails-settings-cached (>= 0.5.3, < 0.5.5)
     activejob (4.2.5.1)
       activesupport (= 4.2.5.1)
       globalid (>= 0.3.0)
@@ -335,6 +338,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-settings-cached (0.5.4)
+      rails (>= 4.2.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -427,6 +432,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  activeadmin_settings_cached
   annotate!
   apipie-rails!
   byebug
@@ -449,6 +455,7 @@ DEPENDENCIES
   oauth2
   pg (~> 0.15)
   rails (= 4.2.5.1)
+  rails-settings-cached
   rails_12factor
   rmagick
   rollbar

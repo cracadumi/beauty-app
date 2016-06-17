@@ -23,6 +23,8 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'rmagick'
 gem 'geocoder'
 gem 'country_select'
+gem 'rails-settings-cached'
+gem 'activeadmin_settings_cached'
 
 group :production do
   gem 'rails_12factor'
