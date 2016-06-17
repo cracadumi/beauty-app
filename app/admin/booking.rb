@@ -1,8 +1,7 @@
 ActiveAdmin.register Booking do
   permit_params :status, :user_id, :beautician_id, :datetime_at,
-                :pay_to_beautician, :total_price, :notes,
-                :unavailability_explanation, :checked_in, :expires_at, :instant,
-                :reschedule_at, :items,
+                :notes, :unavailability_explanation, :checked_in, :expires_at,
+                :instant, :reschedule_at, :items,
                 service_ids: [],
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
@@ -29,8 +28,6 @@ ActiveAdmin.register Booking do
       f.input :beautician_id, as: :select,
                               collection: User.beauticians.collection_for_admin
       f.input :datetime_at
-      f.input :pay_to_beautician
-      f.input :total_price
       f.input :notes
       f.input :unavailability_explanation
       f.input :checked_in
