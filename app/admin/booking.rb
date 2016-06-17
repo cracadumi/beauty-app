@@ -1,7 +1,7 @@
 ActiveAdmin.register Booking do
   permit_params :status, :user_id, :beautician_id, :datetime_at,
-                :notes, :unavailability_explanation, :checked_in, :expires_at,
-                :instant, :reschedule_at, :items,
+                :notes, :unavailability_explanation, :checked_in, :instant,
+                :reschedule_at,
                 service_ids: [],
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
@@ -31,7 +31,6 @@ ActiveAdmin.register Booking do
       f.input :notes
       f.input :unavailability_explanation
       f.input :checked_in
-      f.input :expires_at
       f.input :instant
       f.input :reschedule_at
       f.input :services

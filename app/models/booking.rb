@@ -11,22 +11,20 @@ class Booking < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   after_create :set_expires_at
-  after_save :set_prices
-
-  def items
-    services.map(&:name).join ', '
-  end
+  after_save :updates_service_info
 
   def set_expires_at
     expires_at = instant? ? 3.minutes.from_now : 1.day.from_now
     update_column :expires_at, expires_at
   end
 
-  def set_prices
+  def updates_service_info
+    items = services.map(&:name).join(', ')
     pay_to_beautician = services.sum(:price)
     total_price = pay_to_beautician * (100 + Settings.platform_fee.to_i) / 100
     update_columns pay_to_beautician: pay_to_beautician,
-                   total_price: total_price
+                   total_price: total_price,
+                   items: items
   end
 end
 
