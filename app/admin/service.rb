@@ -6,7 +6,7 @@ ActiveAdmin.register Service do
     id_column
     column :user
     column :sub_category
-    column :price
+    column(:price) { |e| number_to_currency(e.price) }
     actions
   end
 

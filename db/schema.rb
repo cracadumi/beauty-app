@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615120428) do
+ActiveRecord::Schema.define(version: 20160617052135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,20 +60,20 @@ ActiveRecord::Schema.define(version: 20160615120428) do
   add_index "availabilities", ["settings_beautician_id"], name: "index_availabilities_on_settings_beautician_id", using: :btree
 
   create_table "bookings", force: :cascade do |t|
-    t.integer  "status",                     default: 0,     null: false
+    t.integer  "status",                                             default: 0,     null: false
     t.integer  "user_id"
     t.integer  "beautician_id"
     t.datetime "datetime_at"
-    t.integer  "pay_to_beautician",          default: 0,     null: false
-    t.integer  "total_price",                default: 0,     null: false
+    t.decimal  "pay_to_beautician",          precision: 8, scale: 2
+    t.decimal  "total_price",                precision: 8, scale: 2
     t.text     "notes"
     t.text     "unavailability_explanation"
-    t.boolean  "checked_in",                 default: false, null: false
+    t.boolean  "checked_in",                                         default: false, null: false
     t.datetime "expires_at"
-    t.boolean  "instant",                    default: false, null: false
+    t.boolean  "instant",                                            default: false, null: false
     t.datetime "reschedule_at"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
   end
 
   add_index "bookings", ["beautician_id"], name: "index_bookings_on_beautician_id", using: :btree
@@ -144,13 +144,24 @@ ActiveRecord::Schema.define(version: 20160615120428) do
   create_table "services", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "sub_category_id"
-    t.integer  "price"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.decimal  "price",           precision: 8, scale: 2
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   add_index "services", ["sub_category_id"], name: "index_services_on_sub_category_id", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "settings_beauticians", force: :cascade do |t|
     t.integer  "user_id"
