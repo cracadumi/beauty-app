@@ -10,6 +10,10 @@ class Booking < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  validates :user, presence: true
+  validates :beautician, presence: true
+  validates :services, presence: true
+
   after_create :set_expires_at
   after_save :updates_service_info
 
@@ -47,6 +51,7 @@ end
 #  reschedule_at              :datetime
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
+#  items                      :string
 #
 # Indexes
 #
