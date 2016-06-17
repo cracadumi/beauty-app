@@ -3,6 +3,8 @@ class Settings < RailsSettings::CachedSettings
   defaults[:platform_fee] = 10
 end
 
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: settings
@@ -19,3 +21,5 @@ end
 #
 #  index_settings_on_thing_type_and_thing_id_and_var  (thing_type,thing_id,var) UNIQUE
 #
+
+# rubocop:enable Metrics/LineLength
