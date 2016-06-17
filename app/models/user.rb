@@ -29,10 +29,10 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :surname, presence: true
   validates :username, format: {
-      with: /\A@\S+\z/
+    with: /\A@\S+\z/
   }, if: 'username.present?'
   validates :phone_number, format: {
-      with: PHONE_REGEX
+    with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
