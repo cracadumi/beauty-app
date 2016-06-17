@@ -1,7 +1,9 @@
 ActiveAdmin.register Booking do
   permit_params :status, :user_id, :beautician_id, :datetime_at, :pay_to_beautician,
                 :total_price, :notes, :unavailability_explanation, :checked_in,
-                :expires_at, :instant, :reschedule_at, :items, service_ids: []
+                :expires_at, :instant, :reschedule_at, :items, service_ids: [],
+                address_attributes: [:street, :postcode, :city, :state,
+                                     :country, :latitude, :longitude]
 
   index do
     selectable_column
@@ -33,6 +35,19 @@ ActiveAdmin.register Booking do
       f.input :instant
       f.input :reschedule_at
       f.input :services
+      f.inputs 'Address' do
+        f.semantic_fields_for :address, (f.object.address ||
+            f.object.build_address) do |meta_form|
+          meta_form.semantic_errors(*f.object.errors.keys)
+          meta_form.input :street
+          meta_form.input :postcode
+          meta_form.input :city
+          meta_form.input :state
+          meta_form.input :country, priority_countries: %w(FR GB DE)
+          meta_form.input :latitude
+          meta_form.input :longitude
+        end
+      end
     end
     f.actions
   end

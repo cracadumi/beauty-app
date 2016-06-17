@@ -8,6 +8,8 @@ class Booking < ActiveRecord::Base
           inverse_of: :addressable, dependent: :destroy
   has_and_belongs_to_many :services
 
+  accepts_nested_attributes_for :address
+
   def items
     services.map(&:name).join ', '
   end
