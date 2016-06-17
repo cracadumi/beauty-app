@@ -3,7 +3,7 @@ class CreateServices < ActiveRecord::Migration
     create_table :services do |t|
       t.references :user, index: true
       t.references :sub_category, index: true
-      t.integer :price
+      t.decimal :price, precision: 8, scale: 2
 
       t.timestamps null: false
     end

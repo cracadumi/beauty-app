@@ -5,8 +5,8 @@ class CreateBookings < ActiveRecord::Migration
       t.references :user, index: true
       t.integer :beautician_id, index: true
       t.datetime	:datetime_at
-      t.integer :pay_to_beautician, null: false, default: 0
-      t.integer :total_price, null: false, default: 0
+      t.decimal :pay_to_beautician, precision: 8, scale: 2
+      t.decimal :total_price, precision: 8, scale: 2
       t.text :notes
       t.text :unavailability_explanation
       t.boolean :checked_in, null: false, default: false
