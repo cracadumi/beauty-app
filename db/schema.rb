@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620100922) do
+ActiveRecord::Schema.define(version: 20160620102943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,21 @@ ActiveRecord::Schema.define(version: 20160620100922) do
   end
 
   add_index "refunds", ["booking_id"], name: "index_refunds_on_booking_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.integer  "user_id"
+    t.integer  "rating",     default: 1,    null: false
+    t.text     "comment"
+    t.integer  "author_id"
+    t.boolean  "visible",    default: true, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "reviews", ["author_id"], name: "index_reviews_on_author_id", using: :btree
+  add_index "reviews", ["booking_id"], name: "index_reviews_on_booking_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "services", force: :cascade do |t|
     t.integer  "user_id"
