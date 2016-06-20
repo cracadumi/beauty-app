@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620102943) do
+ActiveRecord::Schema.define(version: 20160620123936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,18 @@ ActiveRecord::Schema.define(version: 20160620102943) do
   add_index "payments", ["booking_id"], name: "index_payments_on_booking_id", using: :btree
   add_index "payments", ["payment_method_id"], name: "index_payments_on_payment_method_id", using: :btree
   add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "picturable_id"
+    t.string   "picturable_type"
+    t.string   "title"
+    t.text     "description"
+    t.string   "picture_url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "pictures", ["picturable_type", "picturable_id"], name: "index_pictures_on_picturable_type_and_picturable_id", using: :btree
 
   create_table "refunds", force: :cascade do |t|
     t.integer  "booking_id"
