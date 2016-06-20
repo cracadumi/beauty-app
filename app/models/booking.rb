@@ -7,6 +7,7 @@ class Booking < ActiveRecord::Base
   has_one :address, as: :addressable, class_name: 'Address',
           inverse_of: :addressable, dependent: :destroy
   has_many :payments, dependent: :destroy
+  has_many :refunds, dependent: :destroy
   has_and_belongs_to_many :services
 
   accepts_nested_attributes_for :address
