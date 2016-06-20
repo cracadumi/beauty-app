@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620134602) do
+ActiveRecord::Schema.define(version: 20160620140312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,21 @@ ActiveRecord::Schema.define(version: 20160620134602) do
   end
 
   add_index "availabilities", ["settings_beautician_id"], name: "index_availabilities_on_settings_beautician_id", using: :btree
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.integer  "settings_beautician_id"
+    t.integer  "bank_code"
+    t.integer  "branch_number"
+    t.integer  "account_number"
+    t.integer  "rib_key"
+    t.integer  "iban"
+    t.integer  "bic"
+    t.string   "account_holder_name"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "bank_accounts", ["settings_beautician_id"], name: "index_bank_accounts_on_settings_beautician_id", using: :btree
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "status",                                             default: 0,     null: false
