@@ -4,6 +4,7 @@ class Booking < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :beautician, class_name: 'User'
+  belongs_to :payment_method
   has_one :address, as: :addressable, class_name: 'Address',
           inverse_of: :addressable, dependent: :destroy
   has_many :payments, dependent: :destroy
@@ -55,6 +56,7 @@ end
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  items                      :string
+#  payment_method_id          :integer
 #
 # Indexes
 #

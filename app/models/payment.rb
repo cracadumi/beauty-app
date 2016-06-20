@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :booking
   belongs_to :user
-  # belongs_to :payment_method
+  belongs_to :payment_method
 
   validates :booking, presence: true
   validates :user, presence: true

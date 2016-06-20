@@ -51,6 +51,7 @@ end
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  items                      :string
+#  payment_method_id          :integer
 #
 # Indexes
 #

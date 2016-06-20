@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :tokens, class_name: 'Doorkeeper::AccessToken',
            foreign_key: 'resource_owner_id', dependent: :destroy
   has_many :services, dependent: :destroy
+  has_many :payment_methods, dependent: :destroy
 
   accepts_nested_attributes_for :settings_beautician, :address
 
