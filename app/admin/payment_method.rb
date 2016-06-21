@@ -17,6 +17,7 @@ ActiveAdmin.register PaymentMethod do
 
   form do |f|
     f.inputs 'PaymentMethod Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :user
       f.input :payment_type
       f.input :last_4_digits

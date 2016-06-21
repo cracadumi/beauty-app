@@ -20,6 +20,7 @@ ActiveAdmin.register Payment do
 
   form do |f|
     f.inputs 'Payment Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :booking
       f.input :user
       f.input :payment_method
