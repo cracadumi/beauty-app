@@ -2,6 +2,7 @@ class SettingsBeautician < ActiveRecord::Base
   belongs_to :user
   has_one :office_address, as: :addressable, class_name: 'Address',
           dependent: :destroy
+  has_one :bank_account
   has_many :availabilities, dependent: :destroy
 
   accepts_nested_attributes_for :office_address
