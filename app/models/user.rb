@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :gallery_photos, as: :picturable, class_name: 'Picture'
 
-
   accepts_nested_attributes_for :settings_beautician, :address
 
   validates :name, presence: true

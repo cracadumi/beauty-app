@@ -5,6 +5,8 @@ class Picture < ActiveRecord::Base
   validates :picture_url, presence: true
 end
 
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: pictures
@@ -22,3 +24,5 @@ end
 #
 #  index_pictures_on_picturable_type_and_picturable_id  (picturable_type,picturable_id)
 #
+
+# rubocop:enable Metrics/LineLength
