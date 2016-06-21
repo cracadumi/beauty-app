@@ -14,6 +14,7 @@ ActiveAdmin.register SubCategory do
 
   form do |f|
     f.inputs 'SubCategory Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :category
       f.input :name
     end

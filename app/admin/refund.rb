@@ -16,6 +16,7 @@ ActiveAdmin.register Refund do
 
   form do |f|
     f.inputs 'Refund Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :booking
       f.input :refunded_at
       f.input :amount_refunded_to_performer

@@ -23,6 +23,7 @@ ActiveAdmin.register Booking do
 
   form do |f|
     f.inputs 'Booking Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :status
       f.input :user_id, as: :select, collection: User.users.collection_for_admin
       f.input :beautician_id, as: :select,
@@ -37,7 +38,7 @@ ActiveAdmin.register Booking do
       f.inputs 'Address' do
         f.semantic_fields_for :address, (f.object.address ||
             f.object.build_address) do |meta_form|
-          meta_form.semantic_errors(*f.object.errors.keys)
+          meta_form.semantic_errors(*meta_form.object.errors.keys)
           meta_form.input :street
           meta_form.input :postcode
           meta_form.input :city

@@ -17,6 +17,7 @@ ActiveAdmin.register BankAccount do
 
   form do |f|
     f.inputs 'BankAccount Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :settings_beautician
       f.input :bank_code
       f.input :branch_number

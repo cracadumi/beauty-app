@@ -22,6 +22,7 @@ ActiveAdmin.register Availability do
 
   form do |f|
     f.inputs 'Availability Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :settings_beautician,
               as: :select,
               collection: SettingsBeautician.all.collection_for_admin

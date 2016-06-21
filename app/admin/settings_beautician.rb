@@ -25,6 +25,7 @@ ActiveAdmin.register SettingsBeautician do
 
   form do |f|
     f.inputs 'SettingsBeautician Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :user, as: :select, collection: User.all.collection_for_admin
       f.input :profession
       f.input :instant_booking
@@ -34,6 +35,7 @@ ActiveAdmin.register SettingsBeautician do
       f.inputs 'Office address' do
         f.semantic_fields_for :office_address, (f.object.office_address ||
             f.object.build_office_address) do |meta_form|
+          meta_form.semantic_errors(*meta_form.object.errors.keys)
           meta_form.input :street
           meta_form.input :postcode
           meta_form.input :city

@@ -15,6 +15,7 @@ ActiveAdmin.register Service do
 
   form do |f|
     f.inputs 'Service Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :user
       f.input :sub_category
       f.input :price

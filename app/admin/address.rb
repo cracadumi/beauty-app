@@ -15,6 +15,7 @@ ActiveAdmin.register Address do
 
   form do |f|
     f.inputs 'Address Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :street
       f.input :postcode
       f.input :city

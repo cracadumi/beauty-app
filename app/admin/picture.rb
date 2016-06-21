@@ -16,7 +16,7 @@ ActiveAdmin.register Picture do
   filter :picturable, as: :select, collection: Picture.all.map(&:picturable)
 
   form do |f|
-    f.inputs 'Address Details' do
+    f.inputs 'Picture Details' do
       f.semantic_errors(*f.object.errors.keys)
       f.input :picturable_id
       f.input :picturable_type

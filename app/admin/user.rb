@@ -50,7 +50,7 @@ ActiveAdmin.register User do
       f.inputs 'Address' do
         f.semantic_fields_for :address, (f.object.address ||
             f.object.build_address) do |meta_form|
-          meta_form.semantic_errors(*f.object.errors.keys)
+          meta_form.semantic_errors(*meta_form.object.errors.keys)
           meta_form.input :street
           meta_form.input :postcode
           meta_form.input :city

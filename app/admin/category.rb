@@ -12,6 +12,7 @@ ActiveAdmin.register Category do
 
   form do |f|
     f.inputs 'Category Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :name
     end
     f.actions

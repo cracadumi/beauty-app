@@ -16,6 +16,7 @@ ActiveAdmin.register Language do
 
   form do |f|
     f.inputs 'Language Details' do
+      f.semantic_errors(*f.object.errors.keys)
       f.input :name
       f.input :country, priority_countries: %w(FR GB DE)
       f.input :flag_url
