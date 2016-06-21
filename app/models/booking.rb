@@ -1,6 +1,5 @@
 class Booking < ActiveRecord::Base
-  enum status: { pending: 0, accepted: 1, expired: 2, refused: 3, completed: 4,
-                 canceled: 5, rescheduled: 6 }
+  include Statusable
 
   belongs_to :user
   belongs_to :beautician, class_name: 'User'
