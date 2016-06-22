@@ -35,7 +35,8 @@ module Api
           "phone_number": null,
           "dob_on": null,
           "profile_picture_url": null,
-          "rating": 0
+          "rating": 0,
+          "created_at": "2016-06-06T15:26:37.093Z"
         }
       EOS
 
