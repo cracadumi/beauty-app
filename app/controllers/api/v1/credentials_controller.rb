@@ -44,7 +44,6 @@ module Api
         Returns code 204 if user successfully updated.
       EOS
       param :user, Hash, desc: 'User info', required: true do
-        param :email, String, desc: 'Email', required: true
         param :name, String, desc: 'Name', required: true
         param :surname, String, desc: 'Surname'
         param :sex, %w(male female other), desc: 'Sex. Other by default.'
@@ -77,8 +76,8 @@ module Api
 
       def user_params
         params.require(:user)
-              .permit(:email, :name, :surname, :sex, :bio, :phone_number,
-                      :dob_on, :profile_picture, :password, :language_id)
+              .permit(:name, :surname, :sex, :bio, :phone_number, :dob_on,
+                      :profile_picture, :password, :language_id)
       end
 
       def set_user
