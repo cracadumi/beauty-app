@@ -47,7 +47,6 @@ module Api
         param :email, String, desc: 'Email', required: true
         param :name, String, desc: 'Name', required: true
         param :surname, String, desc: 'Surname'
-        param :username, String, desc: 'Username', required: true
         param :sex, %w(male female other), desc: 'Sex. Other by default.'
         param :bio, String, desc: 'Bio'
         param :phone_number, User::PHONE_REGEX, desc: 'Phone'
@@ -78,9 +77,8 @@ module Api
 
       def user_params
         params.require(:user)
-              .permit(:email, :name, :surname, :username, :sex,
-                      :bio, :phone_number, :dob_on, :profile_picture,
-                      :password, :language_id)
+              .permit(:email, :name, :surname, :sex, :bio, :phone_number,
+                      :dob_on, :profile_picture, :password, :language_id)
       end
 
       def set_user
