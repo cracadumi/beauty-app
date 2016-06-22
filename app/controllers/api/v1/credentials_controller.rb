@@ -53,7 +53,8 @@ module Api
         param :profile_picture, ActionDispatch::Http::UploadedFile,
               desc: 'Photo image'
         param :password, String, desc: 'New password'
-        param :current_password, String, desc: 'Current password'
+        param :current_password, String,
+              desc: 'Current password. Required if password present.'
         param :language_id, Integer, desc: 'Language ID'
       end
 
