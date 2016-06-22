@@ -10,6 +10,9 @@ class Ability
     else
       can :read, User
       can :destroy, User, id: user.id
+
+      can :read, SettingsBeautician
+      can :me, SettingsBeautician
     end
   end
 end

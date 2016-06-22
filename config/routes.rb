@@ -27,6 +27,11 @@ Rails.application.routes.draw do
           get :beauticians
         end
       end
+      resources :settings_beauticians, only: [:show] do
+        collection do
+          get :me
+        end
+      end
     end
   end
 end
