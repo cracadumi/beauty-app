@@ -32,9 +32,10 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :settings_beautician, :address
 
   validates :name, :username, presence: true
-  validates :username, format: {
-    with: /\A@\S+\z/
-  }, if: 'username.present?'
+  validates :username,
+            format: { with: /\A@\S+\z/ },
+            uniqueness: { case_sensitive: false },
+            if: 'username.present?'
   validates :phone_number, format: {
     with: PHONE_REGEX
   }, if: 'phone_number.present?'

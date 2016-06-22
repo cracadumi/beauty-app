@@ -5,7 +5,9 @@ FactoryGirl.define do
     end
     password 'password'
     name 'Alex'
-    username '@pushkin'
+    sequence :username do |n|
+      "@pushkin#{n}"
+    end
     role :user
   end
 end
