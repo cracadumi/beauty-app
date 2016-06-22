@@ -56,9 +56,12 @@ module Api
         param :current_password, String,
               desc: 'Current password. Required if password present.'
         param :language_id, Integer, desc: 'Language ID'
+        param :latitude, Float, desc: 'Latitude'
+        param :longitude, Float, desc: 'Longitude'
       end
 
       def update
+        Rails.logger.info "user_params=#{user_params.inspect}"
         if user_params[:password].present?
           @user.update_with_password(user_params)
         else
@@ -86,7 +89,11 @@ module Api
         params.require(:user)
               .permit(:name, :surname, :sex, :bio, :phone_number, :dob_on,
                       :profile_picture, :password, :current_password,
-                      :language_id)
+                      :language_id, :latitude, :longitude).tap do |e|
+          if e['latitude'].present? || e['longitude'].present?
+            e['location_last_updated_at'] = Time.zone.now
+          end
+        end
       end
 
       def set_user
