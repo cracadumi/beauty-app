@@ -28,30 +28,55 @@ describe Api::V1::CredentialsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:user) { create :user }
+    let(:user) { create :user, password: 'my_password' }
     let(:token) { create :access_token, resource_owner_id: user.id }
 
     before do
       put :update, format: :json, access_token: token.token,
-                   user: { name: 'UpdatedName' }
+          user: user_params
     end
 
-    it { expect(response).to have_http_status(:success) }
+    describe 'update profile data' do
+      let(:user_params) { { name: 'UpdatedName' } }
 
-    it 'updated user\'s data' do
-      user.reload
-      expect(user['name']).to eq('UpdatedName')
-    end
+      it { expect(response).to have_http_status(:success) }
 
-    context 'with expired access_token' do
-      let(:token) do
-        create :access_token, resource_owner_id: user.id,
-                              expires_in: 0
+      it 'updated user\'s data' do
+        user.reload
+        expect(user['name']).to eq('UpdatedName')
       end
 
-      it { expect(response).to have_http_status(:unauthorized) }
+      context 'with expired access_token' do
+        let(:token) do
+          create :access_token, resource_owner_id: user.id,
+                                expires_in: 0
+        end
 
-      it { expect(response.body).to be_empty }
+        it { expect(response).to have_http_status(:unauthorized) }
+
+        it { expect(response.body).to be_empty }
+      end
+    end
+
+    describe 'update password' do
+      let(:user_params) do
+        { password: 'newpass', current_password: 'my_password' }
+      end
+
+      it { expect(response).to have_http_status(:success) }
+
+      it 'updated user\'s data' do
+        user.reload
+        expect(user.valid_password?('newpass')).to be true
+      end
+
+      context 'current password incorrect' do
+        let(:user_params) do
+          { password: 'newpass', current_password: 'wrong_password' }
+        end
+
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+      end
     end
   end
 
@@ -61,7 +86,7 @@ describe Api::V1::CredentialsController, type: :controller do
 
     before do
       delete :destroy, format: :json, access_token: token.token,
-                   user: { name: 'UpdatedName' }
+             user: { name: 'UpdatedName' }
     end
 
     it { expect(response).to have_http_status(:success) }
