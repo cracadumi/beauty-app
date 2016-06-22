@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  namespace :admin do
+    resources :bookings do
+      member do
+        put :set_status
+      end
+    end
+  end
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, path: 'v1' do

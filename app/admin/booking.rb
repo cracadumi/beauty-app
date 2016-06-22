@@ -6,6 +6,12 @@ ActiveAdmin.register Booking do
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
 
+  member_action :set_status, method: :put do
+    state = params[:state]
+    resource.send("#{state}!")
+    redirect_to resource_path, notice: 'Status changed!'
+  end
+
   index do
     selectable_column
     id_column
@@ -14,6 +20,28 @@ ActiveAdmin.register Booking do
     column :items
     column(:total_price) { |e| number_to_currency(e.total_price) }
     column :status
+    column(:change_status) do |e|
+      links = []
+      links << link_to('Accept',
+                       set_status_admin_booking_path(e, state: :accept),
+                       method: :put) if e.may_accept?
+      links << link_to('Expire',
+                       set_status_admin_booking_path(e, state: :expire),
+                       method: :put) if e.may_expire?
+      links << link_to('Refuse',
+                       set_status_admin_booking_path(e, state: :refuse),
+                       method: :put) if e.may_refuse?
+      links << link_to('Complete',
+                       set_status_admin_booking_path(e, state: :complete),
+                       method: :put) if e.may_complete?
+      links << link_to('Cancel',
+                       set_status_admin_booking_path(e, state: :cancel),
+                       method: :put) if e.may_cancel?
+      links << link_to('Reschedule',
+                       set_status_admin_booking_path(e, state: :reschedule),
+                       method: :put) if e.may_reschedule?
+      raw links.join('<br>')
+    end
     actions
   end
 
@@ -24,7 +52,9 @@ ActiveAdmin.register Booking do
   form do |f|
     f.inputs 'Booking Details' do
       f.semantic_errors(*f.object.errors.keys)
-      f.input :status
+      f.input :status, label: 'Status, for tests only!',
+                       hint: 'Doesn\'t fire callbacks. Use links on bookings
+                              list page to change status.'
       f.input :user_id, as: :select, collection: User.users.collection_for_admin
       f.input :beautician_id, as: :select,
                               collection: User.beauticians.collection_for_admin
