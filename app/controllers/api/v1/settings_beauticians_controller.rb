@@ -10,7 +10,7 @@ module Api
         short 'SettingsBeauticians'
       end
 
-      api :GET, 'v1/settings_beauticians/me', 'Show My SettingsBeauticians'
+      api :GET, '/v1/settings_beauticians/me', 'Show My SettingsBeauticians'
       description <<-EOS
         ## Description
         Show SettingsBeautician data of current user
@@ -28,7 +28,7 @@ module Api
         respond_with @settings_beautician
       end
 
-      api :GET, 'v1/settings_beauticians/:id', 'Show SettingsBeauticians'
+      api :GET, '/v1/settings_beauticians/:id', 'Show SettingsBeauticians'
       description <<-EOS
         ## Description
         Show SettingsBeautician data
