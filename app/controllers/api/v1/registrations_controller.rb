@@ -16,8 +16,9 @@ module Api
         param :email, String, desc: 'Email', required: true
         param :password, String, desc: 'Password', required: true
         param :name, String, desc: 'Name', required: true
-        param :surname, String, desc: 'Surname', required: true
-        param :username, String, desc: 'Username. Starts with @, without spaces'
+        param :surname, String, desc: 'Surname'
+        param :username, String,
+              desc: 'Username. Starts with @, without spaces', required: true
         param :sex, %w(male female other), desc: 'Sex. Other by default.'
         param :facebook_token, String, desc: 'Facebook token to sign up with FB'
       end

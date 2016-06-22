@@ -5,7 +5,7 @@ FactoryGirl.define do
     end
     password 'password'
     name 'Alex'
-    surname 'Pushkin'
+    username '@pushkin'
     role :user
   end
 end

@@ -31,8 +31,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :settings_beautician, :address
 
-  validates :name, presence: true
-  validates :surname, presence: true
+  validates :name, :username, presence: true
   validates :username, format: {
     with: /\A@\S+\z/
   }, if: 'username.present?'

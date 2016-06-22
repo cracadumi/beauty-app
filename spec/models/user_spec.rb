@@ -25,7 +25,7 @@ describe User, type: :model do
 
   describe '#display_name' do
     it 'returns the concatenated first and last name if both are present' do
-      user = create(:user, name: 'Alex', surname: 'Pushkin')
+      user = create(:user, name: 'Alex', surname: 'Pushkin', username: '@push')
 
       result = user.display_name
 
@@ -33,7 +33,7 @@ describe User, type: :model do
     end
 
     it 'returns name if name present but surname not' do
-      user = build(:user, name: 'Alex', surname: '')
+      user = build(:user, name: 'Alex', surname: '', username: '@push')
 
       result = user.display_name
 
@@ -41,7 +41,7 @@ describe User, type: :model do
     end
 
     it 'returns surname if surname present but name not' do
-      user = build(:user, name: '', surname: 'Pushkin')
+      user = build(:user, name: '', surname: 'Pushkin', username: '@push')
 
       result = user.display_name
 
@@ -49,11 +49,12 @@ describe User, type: :model do
     end
 
     it 'returns email if both name and surname not specified' do
-      user = build(:user, email: 'em@il.ru', name: '', surname: '')
+      user = build(:user, email: 'em@il.ru', name: '', surname: '',
+                   username: '@push')
 
       result = user.display_name
 
-      expect(result).to eq('em@il.ru')
+      expect(result).to eq('@push')
     end
   end
 

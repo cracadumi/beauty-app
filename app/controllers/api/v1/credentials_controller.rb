@@ -45,8 +45,8 @@ module Api
       param :user, Hash, desc: 'User info', required: true do
         param :email, String, desc: 'Email', required: true
         param :name, String, desc: 'Name', required: true
-        param :surname, String, desc: 'Surname', required: true
-        param :username, String, desc: 'Username'
+        param :surname, String, desc: 'Surname'
+        param :username, String, desc: 'Username', required: true
         param :sex, %w(male female other), desc: 'Sex. Other by default.'
         param :bio, String, desc: 'Bio'
         param :phone_number, User::PHONE_REGEX, desc: 'Phone'
