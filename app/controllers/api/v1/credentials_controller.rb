@@ -52,10 +52,17 @@ module Api
         param :dob_on, String, desc: 'Date of birth'
         param :profile_picture, ActionDispatch::Http::UploadedFile,
               desc: 'Photo image'
+        param :password, String, desc: 'New password'
+        param :current_password, String, desc: 'Current password'
+        param :language_id, Integer, desc: 'Language ID'
       end
 
       def update
-        @user.update_attributes(user_params)
+        if user_params[:password].present?
+          @user.update_with_password(user_params)
+        else
+          @user.update_attributes(user_params)
+        end
         respond_with @user
       end
 
@@ -77,7 +84,8 @@ module Api
       def user_params
         params.require(:user)
               .permit(:name, :surname, :sex, :bio, :phone_number, :dob_on,
-                      :profile_picture, :password, :language_id)
+                      :profile_picture, :password, :current_password,
+                      :language_id)
       end
 
       def set_user

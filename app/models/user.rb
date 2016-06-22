@@ -42,9 +42,9 @@ class User < ActiveRecord::Base
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
   before_validation :add_dog_to_username
-  after_save :set_inactive, if: 'archived? && active?'
   before_validation :check_fb_token, if: 'facebook_token.present?'
   after_create :create_settings_beautician, if: 'beautician?'
+  after_save :set_inactive, if: 'archived? && active?'
 
   def display_name
     if name.present? || surname.present?
