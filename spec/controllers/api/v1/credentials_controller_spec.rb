@@ -28,7 +28,9 @@ describe Api::V1::CredentialsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:user) { create :user, password: 'my_password' }
+    let(:user) do
+      create :user, password: 'my_password', latitude: '1.22', longitude: '2.33'
+    end
     let(:token) { create :access_token, resource_owner_id: user.id }
 
     before do
@@ -67,6 +69,7 @@ describe Api::V1::CredentialsController, type: :controller do
 
       it 'updated user\'s data' do
         user.reload
+
         expect(user.valid_password?('newpass')).to be true
       end
 
@@ -76,6 +79,52 @@ describe Api::V1::CredentialsController, type: :controller do
         end
 
         it { expect(response).to have_http_status(:unprocessable_entity) }
+      end
+    end
+
+    describe 'update coordinates' do
+      let(:user_params) do
+        { latitude: '1.111', longitude: '2.222' }
+      end
+
+      it { expect(response).to have_http_status(:success) }
+
+      it 'updated coordinates' do
+        user.reload
+
+        expect(user.latitude).to eq(1.111)
+        expect(user.longitude).to eq(2.222)
+      end
+
+      it 'updated location_last_updated_at' do
+        user.reload
+
+        result = user.location_last_updated_at.to_i
+
+        expect(result).to eq(Time.zone.now.to_i)
+      end
+
+      context 'coordinates weren\'t passed' do
+        let(:user_params) do
+          { name: 'New name' }
+        end
+
+        it { expect(response).to have_http_status(:success) }
+
+        it 'coordinates unchanged' do
+          user.reload
+
+          expect(user.latitude).to eq(1.22)
+          expect(user.longitude).to eq(2.33)
+        end
+
+        it 'location_last_updated_at unchanged' do
+          user.reload
+
+          result = user.location_last_updated_at
+
+          expect(result).to be nil
+        end
       end
     end
   end
