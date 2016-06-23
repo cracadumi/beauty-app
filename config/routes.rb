@@ -16,20 +16,21 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, path: 'v1' do
       devise_scope :user do
-        post '/registrations' => 'registrations#create'
-        put '/me' => 'credentials#update'
+        resource :registrations, only: [:create]
+        resource :credentials, only: [:update], path: :me
         resources :passwords, only: :create
       end
-      get '/me' => 'credentials#show'
-      delete '/me' => 'credentials#destroy'
+      resource :credentials, only: [:show, :destroy], path: :me do
+        collection do
+          resource :settings_beauticians, only: [:show]
+        end
+      end
       resources :users, only: [:show] do
         collection do
           get :beauticians
         end
-      end
-      resources :settings_beauticians, only: [:show] do
-        collection do
-          get :me
+        member do
+          resource :settings_beauticians, only: [:show]
         end
       end
     end
