@@ -1,2 +1,2 @@
-json.extract! address, :street, :postcode, :city, :state, :latitude,
+json.extract! address, :id, :street, :postcode, :city, :state, :latitude,
               :longitude, :country
