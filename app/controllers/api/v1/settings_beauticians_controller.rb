@@ -20,7 +20,24 @@ module Api
           "instant_booking": true,
           "advance_booking": true,
           "mobile": true,
-          "office": true
+          "office": true,
+          "office_address": {
+            "street": "123",
+            "postcode": 123,
+            "city": "123",
+            "state": "",
+            "latitude": 37.5700969,
+            "longitude": 126.9913845,
+            "country": "FR"
+          },
+          "availabilities": [
+            {
+              "day": "sunday",
+              "starts_at_time": "09:00",
+              "ends_at_time": "17:00",
+              "working_day": true
+            }
+          ]
         }
       EOS
 
@@ -38,7 +55,24 @@ module Api
           "instant_booking": true,
           "advance_booking": true,
           "mobile": true,
-          "office": true
+          "office": true,
+          "office_address": {
+            "street": "123",
+            "postcode": 123,
+            "city": "123",
+            "state": "",
+            "latitude": 37.5700969,
+            "longitude": 126.9913845,
+            "country": "FR"
+          },
+          "availabilities": [
+            {
+              "day": "sunday",
+              "starts_at_time": "09:00",
+              "ends_at_time": "17:00",
+              "working_day": true
+            }
+          ]
         }
       EOS
 
