@@ -13,6 +13,9 @@ class Ability
 
       can :read, SettingsBeautician
       can :me, SettingsBeautician
+
+      can :read, Address
+      can :read, Availability
     end
   end
 end
