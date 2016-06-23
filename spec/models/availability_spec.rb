@@ -27,8 +27,9 @@ describe Availability, type: :model do
     end
 
     it 'allows to create availability for other user on this day' do
-      result = build :availability, day: :monday,
-                                    settings_beautician: other_settings_beautician
+      result = build :availability,
+                     settings_beautician: other_settings_beautician,
+                     day: :monday
 
       expect(result).to be_valid
     end
