@@ -4,6 +4,8 @@ class Availability < ActiveRecord::Base
 
   belongs_to :settings_beautician
 
+  validates :day, uniqueness: { scope: :settings_beautician_id }
+
   def starts_at_time
     starts_at.strftime('%H:%M') if starts_at
   end
