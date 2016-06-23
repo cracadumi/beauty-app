@@ -3,6 +3,14 @@ class Availability < ActiveRecord::Base
               friday: 5, saturday: 6 }
 
   belongs_to :settings_beautician
+
+  def starts_at_time
+    starts_at.strftime('%H:%M') if starts_at
+  end
+
+  def ends_at_time
+    ends_at.strftime('%H:%M') if ends_at
+  end
 end
 
 # rubocop:disable Metrics/LineLength
