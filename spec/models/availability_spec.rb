@@ -9,6 +9,38 @@ describe Availability, type: :model do
     expect(subject).to be_valid
   end
 
+  describe 'day uniqness validation' do
+    let(:other_user) { create :user }
+    let(:other_settings_beautician) do
+      create :settings_beautician, user: other_user
+    end
+    let!(:availability) do
+      create :availability, settings_beautician: settings_beautician,
+                            day: :monday
+    end
+
+    it 'doesn\'t allow to create availability for user on this day' do
+      result = build :availability, day: :monday,
+                                    settings_beautician: settings_beautician
+
+      expect(result).not_to be_valid
+    end
+
+    it 'allows to create availability for other user on this day' do
+      result = build :availability, day: :monday,
+                                    settings_beautician: other_settings_beautician
+
+      expect(result).to be_valid
+    end
+
+    it 'allows to create availability for user on other day' do
+      result = build :availability, day: :sunday,
+                                    settings_beautician: settings_beautician
+
+      expect(result).to be_valid
+    end
+  end
+
   describe '#starts_at_time' do
     it 'returns formatted time' do
       expect(subject.starts_at_time).to eq('09:00')
