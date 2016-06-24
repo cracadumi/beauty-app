@@ -12,6 +12,22 @@ class SettingsBeautician < ActiveRecord::Base
   def self.collection_for_admin
     order(:user_id, :id).map { |u| ["#{u.user.name}. #{u.id}", u.id] }
   end
+
+  def create_office_address_from_user_address
+    address_attributes = user.address.attributes.reject do |k|
+      %w(id addressable_id addressable_type).include? k
+    end
+    build_office_address(address_attributes).save
+    create_availabilities
+  end
+
+  def create_availabilities
+    Date::DAYNAMES.each do |week_day|
+      availabilities_param = { day: week_day.downcase, starts_at: '09:00',
+                               ends_at: '17:00' }
+      availabilities.create availabilities_param
+    end
+  end
 end
 
 # == Schema Information

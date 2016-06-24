@@ -163,7 +163,10 @@ describe User, type: :model do
         expect(result).to eq(subject.address.display_name)
       end
 
-      xit 'creates availabilities' do
+      it 'creates availabilities' do
+        result = subject.settings_beautician.availabilities.size
+
+        expect(result).to eq(7)
       end
     end
 
