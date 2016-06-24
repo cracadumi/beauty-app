@@ -11,8 +11,7 @@ module Api
         Update address data.
         Returns 204 code and empty body.
       EOS
-      param :address, Hash, desc: 'Address info',
-                            required: true do
+      param :address, Hash, desc: 'Address info', required: true do
         param :postcode, Integer, desc: 'Postcode'
         param :street, String, desc: 'Street'
         param :city, String, desc: 'City'
