@@ -78,7 +78,7 @@ module Api
         respond_with @settings_beautician
       end
 
-      api :PUT, '/v1/settings_beauticians/:id', 'Update SettingsBeauticians'
+      api :PUT, '/v1/me/settings_beauticians', 'Update SettingsBeauticians'
       description <<-EOS
         ## Description
         Update SettingsBeautician data.
