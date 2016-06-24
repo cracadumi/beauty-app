@@ -33,6 +33,7 @@ Rails.application.routes.draw do
           resource :settings_beauticians, only: [:show]
         end
       end
+      resources :addresses, only: [:update]
     end
   end
 end
