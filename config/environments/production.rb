@@ -3,6 +3,10 @@ Rails.application.configure do
   # config/application.rb.
   config.action_mailer
         .default_url_options = { host: 'beautyapp.herokuapp.com' }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = {
+    api_token: '7cc7ba13-83ae-4638-ab35-69fce14ddda8'
+  }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -14,7 +18,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application

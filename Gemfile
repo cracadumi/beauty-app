@@ -26,6 +26,7 @@ gem 'country_select'
 gem 'rails-settings-cached'
 gem 'activeadmin_settings_cached'
 gem 'aasm'
+gem 'postmark-rails'
 
 group :production do
   gem 'rails_12factor'
