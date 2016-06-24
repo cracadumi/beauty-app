@@ -53,12 +53,27 @@ module Api
         respond_with @user
       end
 
+      def options
+        set_headers
+        head :ok
+      end
+
       private
 
       def user_params
         params.require(:user)
               .permit(:role, :email, :password, :name, :surname, :username,
                       :sex, :language_id, :facebook_token)
+      end
+
+      def set_headers
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Expose-Headers'] = 'Etag'
+        headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE,
+                                                   PATCH, OPTIONS, HEAD'
+        headers['Access-Control-Allow-Headers'] = '*, x-requested-with,
+                                 Content-Type, If-Modified-Since, If-None-Match'
+        headers['Access-Control-Max-Age'] = '86400'
       end
     end
   end

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     scope module: :v1, path: 'v1' do
       devise_scope :user do
         resource :registrations, only: [:create]
+        match '/registrations' => 'registrations#options',
+              constraints: { method: 'OPTIONS' }, via: [:options]
         resource :credentials, only: [:update], path: :me
         resources :passwords, only: :create
       end
