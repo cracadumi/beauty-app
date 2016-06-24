@@ -24,19 +24,23 @@ module Api
       end
       example <<-EOS
         {
-          "id": 10,
+          "id": 31,
           "name": "Name",
           "surname": "Surname",
-          "username": "@adminoff",
+          "username": "@sulyanoff7",
           "role": "user",
-          "email": "em6@il.ru",
+          "email": "em15@il.ru",
           "sex": "other",
           "bio": null,
           "phone_number": null,
           "dob_on": null,
           "profile_picture_url": null,
+          "active": true,
           "rating": 0,
-          "created_at": "2016-06-06T15:26:37.093Z"
+          "created_at": "2016-06-24T01:04:36.390Z",
+          "latitude": null,
+          "longitude": null,
+          "location_last_updated_at": null
         }
       EOS
 

@@ -44,7 +44,8 @@ module Api
           "latitude": 1.123,
           "longitude": 2.345,
           "rating": 0,
-          "created_at": "2016-06-06T15:26:37.093Z"
+          "created_at": "2016-06-06T15:26:37.093Z",
+          "location_last_updated_at": null
         }
       EOS
 
