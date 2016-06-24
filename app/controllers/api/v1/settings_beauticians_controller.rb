@@ -3,7 +3,7 @@ module Api
     class SettingsBeauticiansController < Api::V1::V1Controller
       before_action :doorkeeper_authorize!
       load_and_authorize_resource
-      before_action :set_settings_beautician, only: [:show]
+      before_action :set_settings_beautician, only: [:show, :update]
 
       resource_description do
         short 'SettingsBeauticians'
@@ -81,7 +81,8 @@ module Api
       api :PUT, '/v1/settings_beauticians/:id', 'Update SettingsBeauticians'
       description <<-EOS
         ## Description
-        Update SettingsBeautician data
+        Update SettingsBeautician data.
+        Returns 204 code and empty body.
       EOS
       param :settings_beautician, Hash, desc: 'SettingBeautician info',
                                         required: true do
@@ -90,31 +91,6 @@ module Api
         param :mobile, :bool, desc: 'Mobile'
         param :office, :bool, desc: 'Office'
       end
-      example <<-EOS
-        {
-          "instant_booking": true,
-          "advance_booking": true,
-          "mobile": true,
-          "office": true,
-          "office_address": {
-            "street": "123",
-            "postcode": 123,
-            "city": "123",
-            "state": "",
-            "latitude": 37.5700969,
-            "longitude": 126.9913845,
-            "country": "FR"
-          },
-          "availabilities": [
-            {
-              "day": "sunday",
-              "starts_at_time": "09:00",
-              "ends_at_time": "17:00",
-              "working_day": true
-            }
-          ]
-        }
-      EOS
 
       def update
         @settings_beautician.update_attributes(settings_beautician_params)

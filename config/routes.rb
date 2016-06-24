@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
       resource :credentials, only: [:show, :destroy], path: :me do
         collection do
-          resource :settings_beauticians, only: [:show]
+          resource :settings_beauticians, only: [:show, :update]
         end
       end
       resources :users, only: [:show] do

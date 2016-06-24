@@ -13,6 +13,7 @@ class Ability
 
       can :read, SettingsBeautician
       can :me, SettingsBeautician
+      can :update, SettingsBeautician, user_id: user.id
 
       can :read, Address
       can :read, Availability
