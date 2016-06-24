@@ -99,9 +99,9 @@ describe Api::V1::CredentialsController, type: :controller do
       it 'updated location_last_updated_at' do
         user.reload
 
-        result = user.location_last_updated_at.to_i
+        result = Time.zone.now.to_i - user.location_last_updated_at.to_i
 
-        expect(result).to eq(Time.zone.now.to_i)
+        expect(result).to be <= 1
       end
 
       context 'coordinates weren\'t passed' do
