@@ -1,4 +1,4 @@
-json.extract! settings_beautician, :id, :instant_booking, :advance_booking,
+json.extract! settings_beautician, :instant_booking, :advance_booking,
               :mobile, :office
 
 if settings_beautician.office? && settings_beautician.office_address

@@ -21,6 +21,7 @@ module Api
           "mobile": true,
           "office": true,
           "office_address": {
+            "id": 5,
             "street": "123",
             "postcode": 123,
             "city": "123",
@@ -31,6 +32,7 @@ module Api
           },
           "availabilities": [
             {
+              "id": 45,
               "day": "sunday",
               "starts_at_time": "09:00",
               "ends_at_time": "17:00",
@@ -55,6 +57,7 @@ module Api
           "mobile": true,
           "office": true,
           "office_address": {
+            "id": 45,
             "street": "123",
             "postcode": 123,
             "city": "123",
@@ -65,6 +68,7 @@ module Api
           },
           "availabilities": [
             {
+              "id": 5,
               "day": "sunday",
               "starts_at_time": "09:00",
               "ends_at_time": "17:00",
