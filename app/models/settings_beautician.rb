@@ -18,7 +18,6 @@ class SettingsBeautician < ActiveRecord::Base
       %w(id addressable_id addressable_type).include? k
     end
     build_office_address(address_attributes).save
-    create_availabilities
   end
 
   def create_availabilities

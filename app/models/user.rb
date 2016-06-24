@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   before_validation :add_dog_to_username
   before_validation :check_fb_token, if: 'facebook_token.present?'
-  after_create :create_settings_beautician_and_availabilities, if: 'beautician?'
+  after_create :create_settings_beautician, if: 'beautician?'
   after_save :set_inactive, if: 'archived? && active?'
 
   def display_name
@@ -100,10 +100,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_settings_beautician_and_availabilities
+  def create_settings_beautician
     settings_beautician = build_settings_beautician
     settings_beautician.save
     settings_beautician.create_office_address_from_user_address if address
+    settings_beautician.create_availabilities
   end
 end
 
