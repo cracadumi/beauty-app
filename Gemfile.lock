@@ -202,6 +202,7 @@ GEM
       postmark (~> 1.7.0)
     powerpack (0.1.1)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -337,6 +338,7 @@ DEPENDENCIES
   oauth2
   pg (~> 0.15)
   postmark-rails
+  rack-cors
   rails (= 4.2.5.1)
   rails-settings-cached
   rails_12factor
