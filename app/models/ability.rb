@@ -20,6 +20,9 @@ class Ability
         address.addressable == user ||
           address.addressable.try(:user_id) == user.id
       end
+      can :update, Availability do |address|
+        address.settings_beautician.user_id == user.id
+      end
 
       can :read, Availability
     end

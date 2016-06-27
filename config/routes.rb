@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         end
       end
       resources :addresses, only: [:update]
+      resources :availabilities, only: [:update]
     end
   end
 end
