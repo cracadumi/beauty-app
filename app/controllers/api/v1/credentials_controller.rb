@@ -51,8 +51,7 @@ module Api
         param :bio, String, desc: 'Bio'
         param :phone_number, User::PHONE_REGEX, desc: 'Phone'
         param :dob_on, String, desc: 'Date of birth'
-        param :profile_picture, ActionDispatch::Http::UploadedFile,
-              desc: 'Photo image'
+        param :profile_picture_url, String, desc: 'Photo image'
         param :password, String, desc: 'New password'
         param :current_password, String,
               desc: 'Current password. Required if password present.'
@@ -89,7 +88,7 @@ module Api
       def user_params
         params.require(:user)
               .permit(:name, :surname, :sex, :bio, :phone_number, :dob_on,
-                      :profile_picture, :password, :current_password,
+                      :profile_picture_url, :password, :current_password,
                       :language_id, :latitude, :longitude).tap do |e|
           if e['latitude'].present? || e['longitude'].present?
             e['location_last_updated_at'] = Time.zone.now

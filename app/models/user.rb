@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  mount_uploader :profile_picture, AvatarUploader
-
   PHONE_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
   attr_accessor :facebook_token
@@ -133,7 +131,7 @@ end
 #  bio                      :text
 #  phone_number             :string
 #  dob_on                   :date
-#  profile_picture          :string
+#  profile_picture_url      :string
 #  active                   :boolean          default(FALSE), not null
 #  archived                 :boolean          default(FALSE), not null
 #  latitude                 :float
