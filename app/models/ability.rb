@@ -9,10 +9,9 @@ class Ability
       can :manage, :all
     else
       can :read, User
-      can :destroy, User, id: user.id
+      can [:destroy, :update], User, id: user.id
 
-      can :read, SettingsBeautician
-      can :me, SettingsBeautician
+      can [:read, :me], SettingsBeautician
       can :update, SettingsBeautician, user_id: user.id
 
       can :read, Address
@@ -27,6 +26,11 @@ class Ability
       end
 
       can :read, Language
+
+      can [:read, :create], Picture
+      can :destroy, Picture do |picture|
+        picture.picturable == user
+      end
     end
   end
 end

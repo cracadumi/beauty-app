@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resource :credentials, only: [:show, :destroy], path: :me do
         collection do
           resource :settings_beauticians, only: [:show, :update]
+          resources :pictures, only: [:index, :create]
         end
       end
       resources :users, only: [:show] do
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
       resources :addresses, only: [:update]
       resources :availabilities, only: [:update]
       resources :languages, only: [:index]
+      resources :pictures, only: [:index, :show, :create, :destroy]
     end
   end
 end

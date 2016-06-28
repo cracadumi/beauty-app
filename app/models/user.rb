@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :bookings, dependent: :destroy
   has_many :payment_methods, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :gallery_photos, as: :picturable, class_name: 'Picture'
+  has_many :pictures, as: :picturable, class_name: 'Picture'
 
   accepts_nested_attributes_for :settings_beautician, :address
 
