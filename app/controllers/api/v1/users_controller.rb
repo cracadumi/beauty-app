@@ -9,7 +9,7 @@ module Api
         short 'Users'
       end
 
-      api! 'Search user'
+      api! 'Search users'
       description <<-EOS
         ## Description
         Search users
@@ -18,7 +18,7 @@ module Api
 
       EOS
 
-      def beauticians
+      def index
         # TODO: implement
       end
 

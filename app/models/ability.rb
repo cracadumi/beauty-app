@@ -8,7 +8,9 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, User
+      can :read, User do |usr|
+        usr.beautician? || usr == user
+      end
       can [:destroy, :update], User, id: user.id
 
       can [:read, :me], SettingsBeautician
