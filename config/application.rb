@@ -26,7 +26,7 @@ module Beautyapp
     # auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names.
     # Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Paris'
 
     # The default locale is :en and all translations from
     # config/locales/*.rb,yml are auto loaded.
@@ -39,7 +39,8 @@ module Beautyapp
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        resource '*', headers: :any,
+                      methods: [:get, :post, :options, :put, :create, :delete]
       end
     end
   end
