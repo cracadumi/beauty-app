@@ -40,7 +40,7 @@ module Api
           "created_at": "2016-06-24T01:04:36.390Z",
           "latitude": null,
           "longitude": null,
-          "location_last_updated_at": null
+          "last_tracked_at": null
         }
       EOS
 

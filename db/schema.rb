@@ -303,7 +303,7 @@ ActiveRecord::Schema.define(version: 20160628105011) do
     t.integer  "rating",                   default: 0,     null: false
     t.string   "facebook_id"
     t.integer  "language_id"
-    t.datetime "location_last_updated_at"
+    t.datetime "last_tracked_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

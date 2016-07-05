@@ -96,10 +96,10 @@ describe Api::V1::CredentialsController, type: :controller do
         expect(user.longitude).to eq(2.222)
       end
 
-      it 'updated location_last_updated_at' do
+      it 'updated last_tracked_at' do
         user.reload
 
-        result = Time.zone.now.to_i - user.location_last_updated_at.to_i
+        result = Time.zone.now.to_i - user.last_tracked_at.to_i
 
         expect(result).to be <= 1
       end
@@ -118,10 +118,10 @@ describe Api::V1::CredentialsController, type: :controller do
           expect(user.longitude).to eq(2.33)
         end
 
-        it 'location_last_updated_at unchanged' do
+        it 'last_tracked_at unchanged' do
           user.reload
 
-          result = user.location_last_updated_at
+          result = user.last_tracked_at
 
           expect(result).to be nil
         end

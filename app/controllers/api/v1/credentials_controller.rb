@@ -31,7 +31,7 @@ module Api
           "longitude": 2.345,
           "rating": 0,
           "created_at": "2016-06-06T15:26:37.093Z",
-          "location_last_updated_at": null
+          "last_tracked_at": null
         }
       EOS
 
@@ -91,7 +91,7 @@ module Api
                       :profile_picture_url, :password, :current_password,
                       :language_id, :latitude, :longitude).tap do |e|
           if e['latitude'].present? || e['longitude'].present?
-            e['location_last_updated_at'] = Time.zone.now
+            e['last_tracked_at'] = Time.zone.now
           end
         end
       end
