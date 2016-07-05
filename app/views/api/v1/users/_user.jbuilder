@@ -3,8 +3,7 @@ json.extract! user, :id, :name, :surname, :username, :role, :email, :sex, :bio,
               :rating, :created_at
 
 if user.beautician?
-  if user.last_tracked_at.present? &&
-     Time.zone.now - user.last_tracked_at <= 5.minutes
+  if user.recently_tracked?
     json.extract! user, :latitude, :longitude,
                   :last_tracked_at
   end

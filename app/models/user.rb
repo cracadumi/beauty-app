@@ -45,8 +45,16 @@ class User < ActiveRecord::Base
   after_create :create_settings_beautician, if: 'beautician?'
   after_save :set_inactive, if: 'archived? && active?'
 
+  scope :recently_tracked, -> do
+    where 'users.last_tracked_at <= ?', 5.minutes.ago
+  end
+
   def self.collection_for_admin
     order(:id).map { |u| ["#{u.id}. #{u.display_name}", u.id] }
+  end
+
+  def recently_tracked?
+    last_tracked_at.present? && last_tracked_at <= 5.minutes.ago
   end
 
   def display_name
