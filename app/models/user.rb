@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+  reverse_geocoded_by :latitude, :longitude
 
   PHONE_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
@@ -44,9 +45,19 @@ class User < ActiveRecord::Base
 
   scope :users, -> { where role: roles[:user] }
   scope :beauticians, -> { where role: roles[:beautician] }
-  scope :recently_tracked, -> do
-    where 'users.last_tracked_at <= ?', 5.minutes.ago
-  end
+  scope :recently_tracked, lambda {
+    where 'users.last_tracked_at >= ?', 5.minutes.ago
+  }
+  scope :nearest, lambda { |lat, lng, distance|
+    near([lat, lng], distance, order: 'distance', units: :km)
+  }
+  scope :of_category, lambda { |category_id|
+    # TODO: complete…
+    where id: Category.find_by(id: category_id).sub_categories.map(&:user_ids).flatten.uniq
+  }
+  scope :with_min_rating, lambda { |min_rating|
+    where 'users.rating >= ?', min_rating
+  }
 
   def self.collection_for_admin
     order(:id).map { |u| ["#{u.id}. #{u.display_name}", u.id] }
