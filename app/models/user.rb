@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
   enum role: { user: 0, beautician: 1, admin: 2 }
   enum sex: { male: 1, female: 2, other: 3 }
 
-  scope :users, -> { where role: roles[:user] }
-  scope :beauticians, -> { where role: roles[:beautician] }
-
   belongs_to :language
   has_one :settings_beautician, dependent: :destroy
   has_one :address, as: :addressable, class_name: 'Address',
@@ -45,6 +42,8 @@ class User < ActiveRecord::Base
   after_create :create_settings_beautician, if: 'beautician?'
   after_save :set_inactive, if: 'archived? && active?'
 
+  scope :users, -> { where role: roles[:user] }
+  scope :beauticians, -> { where role: roles[:beautician] }
   scope :recently_tracked, -> do
     where 'users.last_tracked_at <= ?', 5.minutes.ago
   end
@@ -54,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def recently_tracked?
-    last_tracked_at.present? && last_tracked_at <= 5.minutes.ago
+    last_tracked_at.present? && last_tracked_at >= 5.minutes.ago
   end
 
   def display_name
@@ -116,6 +115,16 @@ class User < ActiveRecord::Base
 
   def in_favorites?(beautician)
     favorites.where(beautician_id: beautician.id).any?
+  end
+
+  def update_rating
+    self.reviews_count = reviews.size
+    self.rating = reviews.any? ? reviews.sum(:rating) / reviews.size : 0
+  end
+
+  def update_rating!
+    update_rating
+    save
   end
 end
 

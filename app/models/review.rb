@@ -6,6 +6,12 @@ class Review < ActiveRecord::Base
   validates :booking, presence: true
   validates :user, presence: true
   validates :author, presence: true
+
+  after_save :update_users_rating
+
+  def update_users_rating
+    user.update_rating!
+  end
 end
 
 # == Schema Information

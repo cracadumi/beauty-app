@@ -9,17 +9,39 @@ module Api
         short 'Users'
       end
 
-      api! 'Search users'
+      api :GET, '/v1/users', 'Search users'
       description <<-EOS
         ## Description
         Search users
       EOS
+      param :latitude, Float, desc: 'Latitude', require: true
+      param :longitude, Float, desc: 'Longitude', require: true
+      param :distance, Integer, desc: 'Distance, km. Default 15.'
+      param :category_id, Integer, desc: 'Category ID'
+      param :max_price, Integer, desc: 'Max service price'
+      param :min_rating, Integer, desc: 'Min rating'
       example <<-EOS
-
+        [
+          {
+            "id": 20,
+            "name": "Beautician",
+            "surname": "Test",
+            "rating": 0,
+            "reviews_count": 0,
+            "in_favorites": false,
+            "instant_booking": false,
+            "office": false,
+            "mobile": false,
+            "latitude": 1.11,
+            "longitude": 2.22,
+            "last_tracked_at": "2016-06-28T11:15:00.000+02:00"
+          }
+        ]
       EOS
 
       def index
-        # TODO: implement
+        @users = User.beauticians.recently_tracked
+        respond_with @user
       end
 
       api! 'Show user'

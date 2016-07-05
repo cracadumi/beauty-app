@@ -27,7 +27,7 @@ Rails.application.routes.draw do
           resources :pictures, only: [:index, :create]
         end
       end
-      resources :users, only: [:show] do
+      resources :users, only: [:index, :show] do
         collection do
           get :beauticians
         end
