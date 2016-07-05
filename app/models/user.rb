@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
   after_create :create_settings_beautician, if: 'beautician?'
   after_save :set_inactive, if: 'archived? && active?'
 
+  def self.collection_for_admin
+    order(:id).map { |u| ["#{u.id}. #{u.display_name}", u.id] }
+  end
+
   def display_name
     if name.present? || surname.present?
       return [name, surname].select(&:present?).join(' ')
@@ -71,10 +75,6 @@ class User < ActiveRecord::Base
     errors.add(:active, 'User archived') && return if archived?
     update_attribute :active, true
     UserMailer.verified_beautician(id).deliver_now
-  end
-
-  def self.collection_for_admin
-    order(:id).map { |u| ["#{u.id}. #{u.display_name}", u.id] }
   end
 
   def add_dog_to_username
