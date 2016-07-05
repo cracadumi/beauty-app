@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :payment_methods, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :pictures, as: :picturable, class_name: 'Picture'
+  has_many :favorites, dependent: :destroy
 
   accepts_nested_attributes_for :settings_beautician, :address
 
@@ -103,6 +104,10 @@ class User < ActiveRecord::Base
     settings_beautician.save
     settings_beautician.create_office_address_from_user_address if address
     settings_beautician.create_availabilities
+  end
+
+  def in_favorites?(beautician)
+    favorites.where(beautician_id: beautician.id).any?
   end
 end
 
