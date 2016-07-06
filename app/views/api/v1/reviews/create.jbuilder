@@ -1,1 +1,1 @@
-json.partial! @picture
+json.partial! @review
