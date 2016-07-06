@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
     near([lat, lng], distance, order: 'distance', units: :km)
   }
   scope :of_category, lambda { |category_id|
-    # TODO: complete…
-    where id: Category.find_by(id: category_id).sub_categories.map(&:user_ids).flatten.uniq
+    where id: Category.find_by!(id: category_id).sub_categories
+      .map(&:user_ids).flatten.uniq
   }
   scope :with_min_rating, lambda { |min_rating|
     where 'users.rating >= ?', min_rating

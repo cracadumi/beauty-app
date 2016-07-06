@@ -41,10 +41,12 @@ module Api
 
       def index
         @users = User.beauticians.recently_tracked
-
-        @users = @users.of_category(params[:category_id]) if params[:category_id].present?
-        @users = @users.with_min_rating(params[:min_rating]) if params[:min_rating].present?
-
+        if params[:category_id].present?
+          @users = @users.of_category(params[:category_id])
+        end
+        if params[:min_rating].present?
+          @users = @users.with_min_rating(params[:min_rating])
+        end
         @users = @users.nearest(params[:latitude], params[:longitude],
                                 params[:distance] || 15)
         respond_with @user
