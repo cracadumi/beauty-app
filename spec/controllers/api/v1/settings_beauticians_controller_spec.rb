@@ -30,7 +30,7 @@ describe Api::V1::SettingsBeauticiansController, type: :controller do
     let(:token) { create :access_token, resource_owner_id: beautician.id }
 
     before do
-      get :show, format: :json, access_token: token.token
+      get :show, format: :json, access_token: token.token, me: true
     end
 
     it { expect(response).to have_http_status(:success) }
@@ -57,7 +57,7 @@ describe Api::V1::SettingsBeauticiansController, type: :controller do
 
     before do
       get :update, format: :json, access_token: token.token,
-          settings_beautician: settings_beautician_params
+          settings_beautician: settings_beautician_params, me: true
     end
 
     it { expect(response).to have_http_status(:success) }

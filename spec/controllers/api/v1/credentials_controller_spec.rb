@@ -6,7 +6,7 @@ describe Api::V1::CredentialsController, type: :controller do
     let(:token) { create :access_token, resource_owner_id: user.id }
 
     before do
-      get :show, format: :json, access_token: token.token
+      get :show, format: :json, access_token: token.token, me: true
     end
 
     it { expect(response).to have_http_status(:success) }
@@ -135,7 +135,7 @@ describe Api::V1::CredentialsController, type: :controller do
 
     before do
       delete :destroy, format: :json, access_token: token.token,
-             user: { name: 'UpdatedName' }
+             user: { name: 'UpdatedName' }, me: true
     end
 
     it { expect(response).to have_http_status(:success) }
