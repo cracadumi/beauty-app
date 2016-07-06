@@ -33,6 +33,8 @@ class Ability
       can :destroy, Picture do |picture|
         picture.picturable == user
       end
+
+      can :crud, Favorite, user_id: user.id
     end
   end
 end
