@@ -21,10 +21,11 @@ Rails.application.routes.draw do
         resource :credentials, only: [:update], path: :me
         resources :passwords, only: :create
       end
-      resource :credentials, only: [:show, :destroy], path: :me do
+      resource :credentials, only: [:show, :destroy], path: :me, me: true do
         collection do
           resource :settings_beauticians, only: [:show, :update]
           resources :pictures, only: [:index, :create]
+          resources :favorites, only: [:index]
         end
       end
       resources :users, only: [:index, :show] do
