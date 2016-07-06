@@ -5,6 +5,10 @@ module Api
       load_and_authorize_resource
       before_action :set_address, only: [:update]
 
+      resource_description do
+        short 'Addresses'
+      end
+
       api :PUT, '/v1/addresses/:id', 'Update Address'
       description <<-EOS
         ## Description

@@ -7,6 +7,10 @@ module Api
       before_action :set_picture, only: [:show, :destroy]
       before_action :authorize_parent, only: [:create]
 
+      resource_description do
+        short 'Pictures'
+      end
+
       api :GET, '/v1/me/pitures', 'List of Pictures'
       description <<-EOS
         ## Description

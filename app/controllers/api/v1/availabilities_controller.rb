@@ -5,6 +5,10 @@ module Api
       load_and_authorize_resource
       before_action :set_availability, only: [:update]
 
+      resource_description do
+        short 'Availabilities'
+      end
+
       api :PUT, '/v1/availabilities/:id', 'Update Availability'
       description <<-EOS
         ## Description

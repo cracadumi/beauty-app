@@ -4,6 +4,10 @@ module Api
       before_action :doorkeeper_authorize!
       load_and_authorize_resource
 
+      resource_description do
+        short 'Languages'
+      end
+
       api :GET, '/v1/languages', 'Languages list'
       description <<-EOS
         ## Description

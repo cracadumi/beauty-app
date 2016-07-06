@@ -5,6 +5,10 @@ module Api
         short 'User Password'
       end
 
+      resource_description do
+        short 'Passwords'
+      end
+
       api :POST, '/v1/passwords', 'Send reset password instructions'
       description <<-EOS
         ## Description
