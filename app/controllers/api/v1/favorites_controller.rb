@@ -16,6 +16,16 @@ module Api
       EOS
       example <<-EOS
         [
+          {
+            "id": 1,
+            "beautician": {
+              "id": 20,
+              "name": "Beautician",
+              "surname": "Test",
+              "profile_picture_url": "",
+              "categories": "Nails"
+            }
+          }
         ]
       EOS
 
