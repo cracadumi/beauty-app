@@ -14,25 +14,24 @@ module Api
         Show data of current user
       EOS
       example <<-EOS
-        {
-          "id": 10,
-          "name": "Name",
-          "surname": "Sername",
-          "username": "@username",
-          "role": "user",
-          "email": "em1@il.ru",
-          "sex": "male",
-          "bio": "About me",
-          "phone_number": "1234567890",
-          "dob_on": "2011-03-02",
-          "profile_picture_url": "/uploads/user/profile_picture/2/eye22n.jpeg",
-          "active": true,
-          "latitude": 1.123,
-          "longitude": 2.345,
-          "rating": 0,
-          "created_at": "2016-06-06T15:26:37.093Z",
-          "last_tracked_at": null
-        }
+      {
+        "id": 2,
+        "name": "Updated",
+        "surname": "Sername",
+        "username": "@username",
+        "sex": "male",
+        "bio": "About me",
+        "rating": 0,
+        "created_at": "2016-06-06T17:26:37.093+02:00",
+        "profile_picture": {
+          "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+        },
+        "role": "user",
+        "email": "em1@il.ru",
+        "phone_number": "1234567890",
+        "dob_on": "2011-03-02",
+        "active": false
+      }
       EOS
 
       def show
@@ -51,7 +50,7 @@ module Api
         param :bio, String, desc: 'Bio'
         param :phone_number, User::PHONE_REGEX, desc: 'Phone'
         param :dob_on, String, desc: 'Date of birth'
-        param :profile_picture_url, String, desc: 'Photo image'
+        param :profile_picture, String, desc: 'Photo image, base64'
         param :password, String, desc: 'New password'
         param :current_password, String,
               desc: 'Current password. Required if password present.'
@@ -88,7 +87,7 @@ module Api
       def user_params
         params.require(:user)
               .permit(:name, :surname, :sex, :bio, :phone_number, :dob_on,
-                      :profile_picture_url, :password, :current_password,
+                      :profile_picture, :password, :current_password,
                       :language_id, :latitude, :longitude).tap do |e|
           if e['latitude'].present? || e['longitude'].present?
             e['last_tracked_at'] = Time.zone.now

@@ -1,5 +1,9 @@
-json.extract! user, :id, :name, :surname, :username, :sex, :bio,
-              :profile_picture_url, :rating, :created_at
+json.extract! user, :id, :name, :surname, :username, :sex, :bio, :rating,
+              :created_at
+
+json.profile_picture do
+  json.s70 user.profile_picture.url(:s70)
+end if user.profile_picture?
 
 if current_user == user
   json.extract! user, :role, :email, :phone_number, :dob_on, :active

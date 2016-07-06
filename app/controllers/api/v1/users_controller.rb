@@ -65,7 +65,9 @@ module Api
           "username": "@beautician",
           "sex": "other",
           "bio": "Hi all",
-          "profile_picture_url": "",
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+          },
           "rating": 4,
           "created_at": "2016-06-14T11:28:46.818+02:00",
           "latitude": 1.11,
@@ -109,7 +111,9 @@ module Api
                 "id": 2,
                 "name": "Updated",
                 "surname": "Sername",
-                "profile_picture_url": "eye22n.jpeg"
+                "profile_picture": {
+                  "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+                },
               }
             }
           ]

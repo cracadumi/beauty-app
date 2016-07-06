@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   reverse_geocoded_by :latitude, :longitude
 
+  mount_base64_uploader :profile_picture, ImageUploader
+
   PHONE_REGEX = /\A(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?\z/i
 
   attr_accessor :facebook_token
@@ -23,9 +25,12 @@ class User < ActiveRecord::Base
   has_many :bookings, dependent: :destroy
   has_many :payment_methods, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :my_reviews, dependent: :destroy, foreign_key: 'author_id'
+  has_many :my_reviews, dependent: :destroy, class_name: 'Review',
+           foreign_key: 'author_id'
   has_many :pictures, as: :picturable, class_name: 'Picture'
   has_many :favorites, dependent: :destroy
+  has_many :in_favorites, dependent: :destroy, class_name: 'Favorite',
+           foreign_key: 'beautician_id'
 
   accepts_nested_attributes_for :settings_beautician, :address
 
@@ -174,6 +179,8 @@ end
 #  facebook_id            :string
 #  language_id            :integer
 #  last_tracked_at        :datetime
+#  reviews_count          :integer          default(0), not null
+#  profile_picture        :string
 #
 # Indexes
 #

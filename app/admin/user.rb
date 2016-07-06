@@ -1,9 +1,9 @@
 ActiveAdmin.register User do
   permit_params :email, :name, :surname, :username, :role, :sex, :bio,
-                :phone_number, :dob_on, :profile_picture_url, :rating,
+                :phone_number, :dob_on, :rating,
                 :active, :archived, :latitude, :longitude, :facebook_id,
                 :password, :password_confirmation, :language_id,
-                :last_tracked_at,
+                :last_tracked_at, :profile_picture,
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
 
@@ -36,7 +36,7 @@ ActiveAdmin.register User do
       f.input :bio
       f.input :phone_number
       f.input :dob_on
-      f.input :profile_picture_url
+      f.input :profile_picture, as: :file, image_preview: true
       f.input :active
       f.input :archived
       f.input :latitude

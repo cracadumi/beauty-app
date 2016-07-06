@@ -22,7 +22,9 @@ module Api
               "id": 20,
               "name": "Beautician",
               "surname": "Test",
-              "profile_picture_url": "",
+              "profile_picture": {
+                "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+              },
               "categories": "Nails"
             }
           }

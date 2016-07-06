@@ -31,7 +31,9 @@ module Api
           "username": "@sulyanoff18",
           "sex": "other",
           "bio": null,
-          "profile_picture_url": null,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+          },
           "rating": 0,
           "created_at": "2016-07-06T07:49:25.050+02:00"
         }
@@ -44,7 +46,9 @@ module Api
           "username": "@sulyanoff4",
           "sex": "other",
           "bio": null,
-          "profile_picture_url": null,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+          },
           "rating": 0,
           "created_at": "2016-07-06T07:48:00.176+02:00",
           "categories": "",

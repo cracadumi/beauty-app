@@ -25,6 +25,10 @@ gem 'activeadmin_settings_cached'
 gem 'aasm'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
+gem 'fog', require: 'fog/aws'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'rmagick'
+gem 'carrierwave-base64'
 
 group :production do
   gem 'rails_12factor'

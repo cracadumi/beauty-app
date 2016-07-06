@@ -30,7 +30,7 @@ class FbUserService
         email: data['email'], name: data['first_name'],
         surname: data['last_name'], sex: sex(data['gender']), active: true,
         password: Devise.friendly_token.first(6),
-        profile_picture_url: fb_image_url(data['id'])
+        remote_profile_picture_url: fb_image_url(data['id'])
     }
   end
 
