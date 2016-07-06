@@ -9,6 +9,8 @@ class Review < ActiveRecord::Base
 
   after_save :update_users_rating
 
+  scope :visible, -> { where visible: true }
+
   def update_users_rating
     user.update_rating!
   end

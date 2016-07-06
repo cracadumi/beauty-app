@@ -59,23 +59,60 @@ module Api
       EOS
       example <<-EOS
         {
-          "id": 10,
-          "name": "Name",
-          "surname": "Sername",
-          "username": "@username",
-          "role": "user",
-          "email": "em1@il.ru",
-          "sex": "male",
-          "bio": "About me",
-          "phone_number": "1234567890",
-          "dob_on": "2011-03-02",
-          "profile_picture_url": "/uploads/user/profile_picture/2/eye22n.jpeg",
-          "active": true,
-          "latitude": 1.123,
-          "longitude": 2.345,
-          "rating": 0,
-          "created_at": "2016-06-06T15:26:37.093Z",
-          "last_tracked_at": null
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "username": "@beautician",
+          "sex": "other",
+          "bio": "Hi all",
+          "profile_picture_url": "",
+          "rating": 4,
+          "created_at": "2016-06-14T11:28:46.818+02:00",
+          "latitude": 1.11,
+          "longitude": 2.22,
+          "last_tracked_at": "2016-07-06T07:45:54.503+02:00",
+          "categories": "Nails",
+          "favorite": false,
+          "settings_beautician": {
+            "instant_booking": true,
+            "advance_booking": true,
+            "mobile": true,
+            "office": true,
+            "office_address": {
+              "id": 54,
+              "street": "11",
+              "postcode": 22,
+              "city": "33",
+              "state": "44",
+              "latitude": 30.0447014,
+              "longitude": 31.0337914,
+              "country": "FR"
+            },
+            "availabilities": []
+          },
+          "pictures": [
+            {
+              "id": 1,
+              "title": "Test",
+              "description": "la-la",
+              "picture_url": "http://yastatic.net/morda-logo/i/bender/logo.svg"
+            }
+          ],
+          "reviews": [
+            {
+              "id": 2,
+              "booking_id": 9,
+              "user_id": 20,
+              "rating": 4,
+              "comment": "Good",
+              "author": {
+                "id": 2,
+                "name": "Updated",
+                "surname": "Sername",
+                "profile_picture_url": "eye22n.jpeg"
+              }
+            }
+          ]
         }
       EOS
 

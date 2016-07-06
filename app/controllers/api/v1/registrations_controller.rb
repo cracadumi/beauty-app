@@ -23,24 +23,39 @@ module Api
         param :facebook_token, String, desc: 'Facebook token to sign up with FB'
       end
       example <<-EOS
+        User:
         {
-          "id": 31,
+          "id": 36,
           "name": "Name",
           "surname": "Surname",
-          "username": "@sulyanoff7",
-          "role": "user",
-          "email": "em15@il.ru",
+          "username": "@sulyanoff18",
           "sex": "other",
           "bio": null,
-          "phone_number": null,
-          "dob_on": null,
           "profile_picture_url": null,
-          "active": true,
           "rating": 0,
-          "created_at": "2016-06-24T01:04:36.390Z",
-          "latitude": null,
-          "longitude": null,
-          "last_tracked_at": null
+          "created_at": "2016-07-06T07:49:25.050+02:00"
+        }
+
+        Beautician:
+        {
+          "id": 35,
+          "name": "Name",
+          "surname": "Surname",
+          "username": "@sulyanoff4",
+          "sex": "other",
+          "bio": null,
+          "profile_picture_url": null,
+          "rating": 0,
+          "created_at": "2016-07-06T07:48:00.176+02:00",
+          "categories": "",
+          "settings_beautician": {
+            "instant_booking": false,
+            "advance_booking": false,
+            "mobile": false,
+            "office": false
+          },
+          "pictures": [],
+          "reviews": []
         }
       EOS
 
