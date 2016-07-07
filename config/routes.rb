@@ -25,7 +25,6 @@ Rails.application.routes.draw do
         collection do
           resource :settings_beauticians, only: [:show, :update]
           resources :pictures, only: [:index, :create]
-          resources :favorites, only: [:index]
         end
       end
       resources :users, only: [:index, :show] do
@@ -36,6 +35,7 @@ Rails.application.routes.draw do
           resource :settings_beauticians, only: [:show]
         end
       end
+      resources :favorites, only: [:index, :create, :destroy]
       resources :addresses, only: [:update]
       resources :availabilities, only: [:update]
       resources :languages, only: [:index]
