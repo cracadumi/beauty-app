@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             if: 'username.present?'
   validates :phone_number, format: {
-    with: PHONE_REGEX
+      with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   }
   scope :of_category, lambda { |category_id|
     where id: Category.find_by!(id: category_id).sub_categories
-      .map(&:user_ids).flatten.uniq
+                  .map(&:user_ids).flatten.uniq
   }
   scope :with_min_rating, lambda { |min_rating|
     where 'users.rating >= ?', min_rating
@@ -148,6 +148,15 @@ class User < ActiveRecord::Base
     update_rating
     save
   end
+
+  def update_min_price
+    self.min_price = services.any? ? services.minimum(:price) : nil
+  end
+
+  def update_min_price!
+    update_min_price
+    save
+  end
 end
 
 # == Schema Information
@@ -175,7 +184,6 @@ end
 #  bio                    :text
 #  phone_number           :string
 #  dob_on                 :date
-#  profile_picture_url    :string
 #  active                 :boolean          default(FALSE), not null
 #  archived               :boolean          default(FALSE), not null
 #  latitude               :float
@@ -186,6 +194,7 @@ end
 #  last_tracked_at        :datetime
 #  reviews_count          :integer          default(0), not null
 #  profile_picture        :string
+#  min_price              :decimal(8, 2)
 #
 # Indexes
 #

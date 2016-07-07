@@ -205,7 +205,6 @@ end
 #  bio                    :text
 #  phone_number           :string
 #  dob_on                 :date
-#  profile_picture_url    :string
 #  active                 :boolean          default(FALSE), not null
 #  archived               :boolean          default(FALSE), not null
 #  latitude               :float
@@ -214,6 +213,9 @@ end
 #  facebook_id            :string
 #  language_id            :integer
 #  last_tracked_at        :datetime
+#  reviews_count          :integer          default(0), not null
+#  profile_picture        :string
+#  min_price              :decimal(8, 2)
 #
 # Indexes
 #

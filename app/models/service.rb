@@ -10,6 +10,13 @@ class Service < ActiveRecord::Base
   validates :sub_category, presence: true
 
   delegate :name, to: :sub_category
+
+  after_save :update_users_min_price
+  after_destroy :update_users_min_price
+
+  def update_users_min_price
+    user.update_min_price!
+  end
 end
 
 # == Schema Information

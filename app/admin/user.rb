@@ -3,7 +3,7 @@ ActiveAdmin.register User do
                 :phone_number, :dob_on, :rating,
                 :active, :archived, :latitude, :longitude, :facebook_id,
                 :password, :password_confirmation, :language_id,
-                :last_tracked_at, :profile_picture,
+                :last_tracked_at, :profile_picture, :min_price,
                 address_attributes: [:street, :postcode, :city, :state,
                                      :country, :latitude, :longitude]
 
@@ -43,6 +43,7 @@ ActiveAdmin.register User do
       f.input :longitude
       f.input :last_tracked_at
       f.input :rating
+      f.input :min_price
       f.input :facebook_id
       f.input :language
       if f.object.new_record?
