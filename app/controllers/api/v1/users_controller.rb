@@ -14,8 +14,8 @@ module Api
         ## Description
         Search users
       EOS
-      param :latitude, Float, desc: 'Latitude', require: true
-      param :longitude, Float, desc: 'Longitude', require: true
+      param :latitude, Float, desc: 'Latitude', required: true
+      param :longitude, Float, desc: 'Longitude', required: true
       param :distance, Integer, desc: 'Distance, km. Default 15.'
       param :category_id, Integer, desc: 'Category ID'
       param :max_price, Integer, desc: 'Max service price'
