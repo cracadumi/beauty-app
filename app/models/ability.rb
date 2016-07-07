@@ -35,6 +35,8 @@ class Ability
       end
 
       can :crud, Favorite, user_id: user.id
+
+      can :read, Service
     end
   end
 end

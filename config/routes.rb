@@ -35,6 +35,7 @@ Rails.application.routes.draw do
           resource :settings_beauticians, only: [:show]
         end
       end
+      resources :services, only: [:index]
       resources :favorites, only: [:index, :create, :destroy]
       resources :addresses, only: [:update]
       resources :availabilities, only: [:update]

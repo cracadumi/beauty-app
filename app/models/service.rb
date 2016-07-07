@@ -11,6 +11,21 @@ class Service < ActiveRecord::Base
 
   delegate :name, to: :sub_category
 
+  scope :active, -> { where user_id: User.beauticians.active.pluck(:id) }
+  scope :of_category, lambda { |category_id|
+    where sub_category_id: Category.find_by!(id: category_id).sub_categories
+      .pluck(:id)
+  }
+  scope :with_min_rating, lambda { |min_rating|
+    where user_id: User.where('users.rating >= ?', min_rating).pluck(:id)
+  }
+  scope :nearest, lambda { |lat, lng, distance|
+    where user_id: User.recently_tracked.nearest(lat, lng, distance).map(&:id)
+  }
+  scope :with_max_price, lambda { |max_price|
+    where 'services.price <= ?', max_price
+  }
+
   after_save :update_users_min_price
   after_destroy :update_users_min_price
 
