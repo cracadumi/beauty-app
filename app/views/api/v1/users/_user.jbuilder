@@ -7,6 +7,11 @@ end if user.profile_picture?
 
 if current_user == user
   json.extract! user, :role, :email, :phone_number, :dob_on, :active
+
+  json.language do
+    json.id user.language.id
+    json.name user.language.name
+  end if user.language
 end
 
 if user.beautician?

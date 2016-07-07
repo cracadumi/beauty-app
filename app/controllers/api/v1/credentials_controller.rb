@@ -30,7 +30,11 @@ module Api
         "email": "em1@il.ru",
         "phone_number": "1234567890",
         "dob_on": "2011-03-02",
-        "active": false
+        "active": false,
+        "language": {
+          "id": 1,
+          "name": "Russian"
+        }
       }
       EOS
 
