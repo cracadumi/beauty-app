@@ -8,6 +8,7 @@ class Review < ActiveRecord::Base
   validates :author, presence: true
 
   after_save :update_users_rating
+  after_destroy :update_users_rating
 
   scope :visible, -> { where visible: true }
 
