@@ -61,6 +61,9 @@ class User < ActiveRecord::Base
     where id: Category.find_by!(id: category_id).sub_categories
                   .map(&:user_ids).flatten.uniq
   }
+  scope :with_max_price, lambda { |max_price|
+    where 'users.min_price <= ?', max_price
+  }
   scope :with_min_rating, lambda { |min_rating|
     where 'users.rating >= ?', min_rating
   }

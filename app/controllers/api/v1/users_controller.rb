@@ -44,6 +44,9 @@ module Api
         if params[:category_id].present?
           @users = @users.of_category(params[:category_id])
         end
+        if params[:max_price].present?
+          @users = @users.with_max_price(params[:max_price])
+        end
         if params[:min_rating].present?
           @users = @users.with_min_rating(params[:min_rating])
         end
