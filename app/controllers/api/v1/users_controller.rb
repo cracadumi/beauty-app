@@ -52,7 +52,7 @@ module Api
         end
         @users = @users.nearest(params[:latitude], params[:longitude],
                                 params[:distance] || 15)
-        respond_with @user
+        respond_with @users
       end
 
       api! 'Show user'
