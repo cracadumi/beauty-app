@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             if: 'username.present?'
   validates :phone_number, format: {
-    with: PHONE_REGEX
+      with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   }
   scope :of_category, lambda { |category_id|
     where id: Category.find_by!(id: category_id).sub_categories
-      .map(&:user_ids).flatten.uniq
+                  .map(&:user_ids).flatten.uniq
   }
   scope :with_min_rating, lambda { |min_rating|
     where 'users.rating >= ?', min_rating
@@ -132,6 +132,11 @@ class User < ActiveRecord::Base
 
   def in_favorites?(beautician)
     favorites.where(beautician_id: beautician.id).any?
+  end
+
+  def has_booking?(beautician)
+    bookings.where('bookings.beautician_id = ? AND bookings.datetime_at > ?',
+                   beautician.id, Time.zone.now).any?
   end
 
   def update_rating

@@ -16,7 +16,7 @@ if user.beautician?
   end
   json.categories user.categories.map(&:name).join(', ')
   json.favorite current_user.in_favorites?(user) if user_signed_in?
-  # json.has_booking current_user.has_booking?(user) if user_signed_in?
+  json.has_booking current_user.has_booking?(user) if user_signed_in?
 
   json.settings_beautician do
     json.partial! user.settings_beautician

@@ -75,6 +75,7 @@ module Api
           "last_tracked_at": "2016-07-06T07:45:54.503+02:00",
           "categories": "Nails",
           "favorite": false,
+          "has_booking": true,
           "settings_beautician": {
             "instant_booking": true,
             "advance_booking": true,
