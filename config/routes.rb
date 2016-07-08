@@ -41,6 +41,14 @@ Rails.application.routes.draw do
       resources :availabilities, only: [:update]
       resources :languages, only: [:index]
       resources :pictures, only: [:index, :show, :create, :destroy]
+      resources :payment_methods do
+        collection do
+          get :default
+        end
+        member do
+          put :set_default
+        end
+      end
     end
   end
 end

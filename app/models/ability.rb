@@ -37,6 +37,8 @@ class Ability
       can :crud, Favorite, user_id: user.id
 
       can :read, Service
+
+      can [:crud, :default, :set_default], PaymentMethod, user_id: user.id
     end
   end
 end
