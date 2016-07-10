@@ -3,7 +3,7 @@ module Api
     class BookingsController < Api::V1::V1Controller
       before_action :doorkeeper_authorize!
       load_and_authorize_resource
-      before_action :set_booking, only: [:update]
+      before_action :set_booking, only: [:show]
 
       resource_description do
         short 'Booking'
@@ -29,6 +29,37 @@ module Api
         end
       end
 
+      api :GET, '/v1/bookings', 'Bookings of current user'
+      description <<-EOS
+        ## Description
+        Bookings of current user
+      EOS
+      example <<-EOS
+      [
+        {
+          "id": 16,
+          "status": "accepted",
+          "datetime_at": "2016-06-10T17:42:00.000+02:00",
+          "instant": false,
+          "items": "Manicure, Cut off",
+          "beautician": {
+            "id": 20,
+            "name": "Beautician",
+            "surname": "Test",
+            "rating": 3,
+            "profile_picture": {
+              "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+            }
+          }
+        }
+      ]
+      EOS
+
+      def index
+        @bookings = current_user.bookings
+        respond_with @bookings
+      end
+
       api :POST, '/v1/bookings', 'Add booking'
       description <<-EOS
         ## Description
@@ -38,22 +69,31 @@ module Api
       param_group :booking
       example <<-EOS
       {
-        "id": 15,
-        "status": "pending",
+        "id": 16,
+        "status": "accepted",
         "user_id": 2,
-        "beautician_id": 20,
         "datetime_at": "2016-06-10T17:42:00.000+02:00",
-        "pay_to_beautician": "102.02",
-        "total_price": "112.222",
-        "notes": "Test1",
-        "unavailability_explanation": null,
-        "checked_in": false,
-        "expires_at": "2016-07-11T12:47:47.583+02:00",
         "instant": false,
-        "reschedule_at": null,
-        "created_at": "2016-07-10T12:47:47.575+02:00",
         "items": "Manicure, Cut off",
-        "payment_method_id": 42
+        "beautician": {
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "rating": 3,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+          }
+        },
+        "address": {
+          "id": 71,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        }
       }
       EOS
 
@@ -61,6 +101,89 @@ module Api
         @booking = current_user.bookings.create(booking_params)
         # TODO: charge payment
         # if payment doesn't go through, return error message
+        respond_with @booking
+      end
+
+      api :GET, '/v1/bookings/:id', 'Show Booking'
+      description <<-EOS
+        ## Description
+        Show Booking
+      EOS
+      example <<-EOS
+      {
+        "id": 16,
+        "status": "accepted",
+        "user_id": 2,
+        "datetime_at": "2016-06-10T17:42:00.000+02:00",
+        "instant": false,
+        "items": "Manicure, Cut off",
+        "beautician": {
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "rating": 3,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+          }
+        },
+        "address": {
+          "id": 71,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        }
+      }
+      EOS
+
+      def show
+        respond_with @booking
+      end
+
+      api :GET, '/v1/bookings/last_unreviewed',
+          'Show oldest booking without review'
+      description <<-EOS
+        ## Description
+        Show oldest booking without review.
+        Return 404 error if there is no default payment method.
+      EOS
+      example <<-EOS
+      {
+        "id": 16,
+        "status": "accepted",
+        "user_id": 2,
+        "datetime_at": "2016-06-10T17:42:00.000+02:00",
+        "instant": false,
+        "items": "Manicure, Cut off",
+        "beautician": {
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "rating": 3,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+          }
+        },
+        "address": {
+          "id": 71,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        }
+      }
+      EOS
+
+      def last_unreviewed
+        @booking = current_user.bookings.order(created_at: :asc).where
+                       .not(id: Review.all.pluck(:booking_id)).first
+        head(:not_found) && return unless @booking
         respond_with @booking
       end
 

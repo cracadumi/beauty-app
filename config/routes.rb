@@ -41,7 +41,11 @@ Rails.application.routes.draw do
       resources :availabilities, only: [:update]
       resources :languages, only: [:index]
       resources :pictures, only: [:index, :show, :create, :destroy]
-      resources :bookings, only: [:create]
+      resources :bookings, only: [:create, :show, :index] do
+        collection do
+          get :last_unreviewed
+        end
+      end
       resources :payment_methods do
         collection do
           get :default

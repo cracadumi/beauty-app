@@ -43,6 +43,10 @@ class Ability
       can :create, Booking do
         user.user?
       end
+
+      can [:read, :last_unreviewed], Booking do |booking|
+        booking.user == user || booking.beautician == user
+      end
     end
   end
 end
