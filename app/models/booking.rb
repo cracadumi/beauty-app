@@ -17,8 +17,16 @@ class Booking < ActiveRecord::Base
   validates :beautician, presence: true
   validates :services, presence: true
 
+  before_create :check_already_booked
   after_create :set_expires_at
   after_save :updates_service_info
+
+  def check_already_booked
+    return unless user.bookings.where(beautician_id: beautician_id,
+                                      status: Booking.statuses[:pending]).any?
+    errors.add :base, 'You have a pending booking already with beautician'
+    false
+  end
 
   def set_expires_at
     expires_at = instant? ? 3.minutes.from_now : 1.day.from_now

@@ -39,6 +39,10 @@ class Ability
       can :read, Service
 
       can [:crud, :default, :set_default], PaymentMethod, user_id: user.id
+
+      can :create, Booking do
+        user.user?
+      end
     end
   end
 end
