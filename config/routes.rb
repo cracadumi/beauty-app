@@ -28,11 +28,12 @@ Rails.application.routes.draw do
         end
       end
       resources :users, only: [:index, :show] do
-        collection do
-          get :beauticians
-        end
         member do
           resource :settings_beauticians, only: [:show]
+          resources :availabilities, only: [:index]
+        end
+        collection do
+          get :beauticians
         end
       end
       resources :services, only: [:index]

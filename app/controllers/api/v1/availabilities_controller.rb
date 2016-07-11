@@ -3,10 +3,33 @@ module Api
     class AvailabilitiesController < Api::V1::V1Controller
       before_action :doorkeeper_authorize!
       load_and_authorize_resource
+      before_action :set_user, only: [:index]
       before_action :set_availability, only: [:update]
 
       resource_description do
         short 'Availabilities'
+      end
+
+      api :GET, '/v1/users/:id/availabilities', 'Availabilities of beautician'
+      description <<-EOS
+        ## Description
+        Availabilities of beautician
+      EOS
+      example <<-EOS
+      [
+        {
+          "id": 10,
+          "day": "sunday",
+          "starts_at_time": "09:00",
+          "ends_at_time": "17:00",
+          "working_day": true
+        }
+      ]
+      EOS
+
+      def index
+        @availabilities = @user.settings_beautician.availabilities
+        respond_with @availabilities
       end
 
       api :PUT, '/v1/availabilities/:id', 'Update Availability'
@@ -30,6 +53,10 @@ module Api
 
       def availability_params
         params.require(:availability).permit(:starts_at, :ends_at, :working_day)
+      end
+
+      def set_user
+        @user = User.find_by!(id: params[:id])
       end
 
       def set_availability
