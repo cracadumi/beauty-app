@@ -9,10 +9,23 @@ class Review < ActiveRecord::Base
   validates :rating, presence: true
   validates :comment, presence: true, if: 'rating_is_bad?'
 
+  before_validation :set_user_id, if: 'booking.present?'
   after_save :update_users_rating
   after_destroy :update_users_rating
 
   scope :visible, -> { where visible: true }
+
+  def set_user_id
+    case author
+    when booking.user
+      self.user_id = booking.beautician_id
+    when booking.beautician
+      self.user_id = booking.user_id
+    else
+      errors.add :base, 'Undefined user'
+      return false
+    end
+  end
 
   def update_users_rating
     user.update_rating!

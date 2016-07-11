@@ -1,5 +1,5 @@
 ActiveAdmin.register Review do
-  permit_params :booking_id, :user_id, :rating, :comment, :author_id, :visible
+  permit_params :booking_id, :rating, :comment, :author_id, :visible
 
   index do
     selectable_column
@@ -21,7 +21,6 @@ ActiveAdmin.register Review do
     f.inputs 'Review Details' do
       f.semantic_errors(*f.object.errors.keys)
       f.input :booking
-      f.input :user
       f.input :rating
       f.input :comment
       f.input :author
