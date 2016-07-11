@@ -24,7 +24,10 @@ class User < ActiveRecord::Base
   has_many :categories, through: :services
   has_many :bookings, dependent: :destroy
   has_many :payment_methods, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  has_many :reviews, dependent: :destroy, class_name: 'Review',
+           foreign_key: 'beautician_id'
+  has_many :reviews_of_me, dependent: :destroy, class_name: 'Review',
+           foreign_key: 'user_id'
   has_many :my_reviews, dependent: :destroy, class_name: 'Review',
            foreign_key: 'author_id'
   has_many :pictures, as: :picturable, class_name: 'Picture'
@@ -40,7 +43,7 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             if: 'username.present?'
   validates :phone_number, format: {
-    with: PHONE_REGEX
+      with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
@@ -60,7 +63,7 @@ class User < ActiveRecord::Base
   }
   scope :of_category, lambda { |category_id|
     where id: Category.find_by!(id: category_id).sub_categories
-      .map(&:user_ids).flatten.uniq
+                  .map(&:user_ids).flatten.uniq
   }
   scope :with_max_price, lambda { |max_price|
     where 'users.min_price <= ?', max_price
@@ -144,8 +147,9 @@ class User < ActiveRecord::Base
   end
 
   def update_rating
-    self.reviews_count = reviews.size
-    self.rating = reviews.any? ? reviews.sum(:rating) / reviews.size : 0
+    self.reviews_count = reviews_of_me.size
+    self.rating = reviews_of_me.any? ?
+        reviews_of_me.sum(:rating) / reviews_of_me.size : 0
   end
 
   def update_rating!

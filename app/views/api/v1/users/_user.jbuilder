@@ -30,7 +30,7 @@ if user.beautician?
   json.pictures user.pictures, :id, :title, :description, :picture_url
 
   json.reviews do
-    json.partial! 'api/v1/reviews/review', collection: user.reviews.visible,
-                                           as: :review
+    json.partial! 'api/v1/reviews/review',
+                  collection: user.reviews_of_me.visible, as: :review
   end
 end
