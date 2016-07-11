@@ -42,6 +42,10 @@ class Booking < ActiveRecord::Base
                    items: items
   end
 
+  def display_name
+    "#{id}. #{beautician.display_name} -> #{user.display_name}: #{items}"
+  end
+
   def future_event?
     instant? || datetime_at > Time.zone.now
   end
