@@ -41,6 +41,10 @@ class Booking < ActiveRecord::Base
                    total_price: total_price,
                    items: items
   end
+
+  def future_event?
+    instant? || datetime_at > Time.zone.now
+  end
 end
 
 # == Schema Information

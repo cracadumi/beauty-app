@@ -41,7 +41,8 @@ module Statusable
         transitions from: :accepted, to: :refused
       end
       event :cancel do
-        transitions from: [:pending, :accepted, :rescheduled], to: :canceled
+        transitions from: [:pending, :accepted, :rescheduled], to: :canceled,
+                    guard: :future_event?
       end
       event :reschedule do
         transitions from: :pending, to: :rescheduled
