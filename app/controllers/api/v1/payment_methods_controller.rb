@@ -81,7 +81,8 @@ module Api
         Add new payment method.
         Returns 204 code and payment method data.
       EOS
-      param :payment_method, Hash, desc: 'Payment method info', required: true do
+      param :payment_method, Hash, desc: 'Payment method info',
+                                   required: true do
         param :payment_type, %w(card), desc: 'Payment type'
         param :last_4_digits, String, desc: 'Last 4 digits'
         param :card_type, %w(visa mastercard), desc: 'Card type'

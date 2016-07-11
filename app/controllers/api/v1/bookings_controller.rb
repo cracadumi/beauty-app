@@ -192,9 +192,10 @@ module Api
       def booking_params
         params.require(:booking)
               .permit(:beautician_id, :payment_method_id, :notes, :instant,
-                      :datetime_at, service_ids: [],
-                                    address_attributes: [:postcode, :street, :city, :state,
-                                                         :country])
+                      :datetime_at,
+                      service_ids: [], address_attributes: [:postcode, :street,
+                                                            :city, :state,
+                                                            :country])
       end
 
       def set_booking
