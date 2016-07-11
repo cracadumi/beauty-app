@@ -6,6 +6,8 @@ class Review < ActiveRecord::Base
   validates :booking, presence: true
   validates :user, presence: true
   validates :author, presence: true
+  validates :rating, presence: true
+  validates :comment, presence: true, if: 'rating_is_bad?'
 
   after_save :update_users_rating
   after_destroy :update_users_rating
@@ -14,6 +16,10 @@ class Review < ActiveRecord::Base
 
   def update_users_rating
     user.update_rating!
+  end
+
+  def rating_is_bad?
+    rating.present? && rating <= 2
   end
 end
 
