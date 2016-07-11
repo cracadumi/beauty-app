@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             if: 'username.present?'
   validates :phone_number, format: {
-      with: PHONE_REGEX
+    with: PHONE_REGEX
   }, if: 'phone_number.present?'
   validates :facebook_id, uniqueness: true, if: 'facebook_id.present?'
 
@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   }
   scope :of_category, lambda { |category_id|
     where id: Category.find_by!(id: category_id).sub_categories
-                  .map(&:user_ids).flatten.uniq
+      .map(&:user_ids).flatten.uniq
   }
   scope :with_max_price, lambda { |max_price|
     where 'users.min_price <= ?', max_price
