@@ -14,7 +14,7 @@ module Api
           param :beautician_id, Integer, desc: 'Beautician ID', required: true
           param :service_ids, Array, desc: 'Service IDs', required: true
           param :payment_method_id, Integer, desc: 'PaymentMethod ID',
-                required: true
+                                             required: true
           param :notes, String, desc: 'Notes'
           param :instant, :bool, desc: 'Instant'
           param :datetime_at, DateTime,
@@ -182,7 +182,7 @@ module Api
 
       def last_unreviewed
         @booking = current_user.bookings.order(created_at: :asc).where
-                       .not(id: Review.all.pluck(:booking_id)).first
+                               .not(id: Review.all.pluck(:booking_id)).first
         head(:not_found) && return unless @booking
         respond_with @booking
       end
@@ -191,10 +191,10 @@ module Api
 
       def booking_params
         params.require(:booking)
-            .permit(:beautician_id, :payment_method_id, :notes, :instant,
-                    :datetime_at, service_ids: [],
-                    address_attributes: [:postcode, :street, :city, :state,
-                                         :country])
+              .permit(:beautician_id, :payment_method_id, :notes, :instant,
+                      :datetime_at, service_ids: [],
+                                    address_attributes: [:postcode, :street, :city, :state,
+                                                         :country])
       end
 
       def set_booking
