@@ -42,6 +42,11 @@ Rails.application.routes.draw do
       resources :languages, only: [:index]
       resources :pictures, only: [:index, :show, :create, :destroy]
       resources :bookings, only: [:create, :show, :index] do
+        member do
+          put :cancel
+          put :accept
+          put :reschedule
+        end
         collection do
           get :last_unreviewed
         end

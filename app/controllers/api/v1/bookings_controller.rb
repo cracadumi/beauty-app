@@ -3,7 +3,7 @@ module Api
     class BookingsController < Api::V1::V1Controller
       before_action :doorkeeper_authorize!
       load_and_authorize_resource
-      before_action :set_booking, only: [:show]
+      before_action :set_booking, only: [:show, :cancel]
 
       resource_description do
         short 'Booking'
@@ -184,6 +184,92 @@ module Api
         @booking = current_user.bookings.order(created_at: :asc).where
                                .not(id: Review.all.pluck(:booking_id)).first
         head(:not_found) && return unless @booking
+        respond_with @booking
+      end
+
+      api :PUT, '/v1/bookings/:id/cancel', 'Cancel booking'
+      description <<-EOS
+        ## Description
+        Cancel booking.
+        Returns 204 code and booking data.
+        Куегкт 422 if booking can't be canceled.
+      EOS
+      example <<-EOS
+      {
+        "id": 16,
+        "status": "canceled",
+        "user_id": 2,
+        "datetime_at": "2016-06-10T17:42:00.000+02:00",
+        "instant": false,
+        "items": "Manicure, Cut off",
+        "beautician": {
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "rating": 3,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+          }
+        },
+        "address": {
+          "id": 71,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        }
+      }
+      EOS
+
+      def cancel
+        head(:unprocessable_entity) && return unless @booking.may_cancel?
+        @booking.cancel!
+        respond_with @booking
+      end
+
+      api :PUT, '/v1/bookings/:id/accept', 'Accept booking/reschedule'
+      description <<-EOS
+        ## Description
+        Cancel booking/reschedule.
+        Returns 204 code and booking data.
+        Куегкт 422 if booking can't be rescheduled.
+      EOS
+      example <<-EOS
+      {
+        "id": 16,
+        "status": "accepted",
+        "user_id": 2,
+        "datetime_at": "2016-06-10T17:42:00.000+02:00",
+        "instant": false,
+        "items": "Manicure, Cut off",
+        "beautician": {
+          "id": 20,
+          "name": "Beautician",
+          "surname": "Test",
+          "rating": 3,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/20/s70_eye22n.jpeg"
+          }
+        },
+        "address": {
+          "id": 71,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        }
+      }
+      EOS
+
+      def accept
+        head(:unprocessable_entity) && return unless @booking.may_accept?
+        @booking.accept!
         respond_with @booking
       end
 
