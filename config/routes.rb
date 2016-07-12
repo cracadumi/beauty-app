@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       resources :languages, only: [:index]
       resources :pictures, only: [:index, :show, :create, :destroy]
       resources :bookings, only: [:create, :show, :index] do
+        resources :reviews, only: [:create]
         member do
           put :cancel
           put :accept
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
           put :set_default
         end
       end
+      resources :reviews, only: [:index, :show]
     end
   end
 end

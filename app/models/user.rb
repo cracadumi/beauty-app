@@ -24,11 +24,9 @@ class User < ActiveRecord::Base
   has_many :categories, through: :services
   has_many :bookings, dependent: :destroy
   has_many :payment_methods, dependent: :destroy
-  has_many :reviews, dependent: :destroy, class_name: 'Review',
-           foreign_key: 'beautician_id'
   has_many :reviews_of_me, dependent: :destroy, class_name: 'Review',
            foreign_key: 'user_id'
-  has_many :my_reviews, dependent: :destroy, class_name: 'Review',
+  has_many :reviews, dependent: :destroy, class_name: 'Review',
            foreign_key: 'author_id'
   has_many :pictures, as: :picturable, class_name: 'Picture'
   has_many :favorites, dependent: :destroy

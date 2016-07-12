@@ -52,6 +52,8 @@ class Ability
       can :accept, Booking do |booking|
         booking.user == user && booking.rescheduled?
       end
+
+      can [:read, :create], Review
     end
   end
 end
