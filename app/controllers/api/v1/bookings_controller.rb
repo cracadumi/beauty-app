@@ -14,7 +14,7 @@ module Api
           param :beautician_id, Integer, desc: 'Beautician ID', required: true
           param :service_ids, Array, desc: 'Service IDs', required: true
           param :payment_method_id, Integer, desc: 'PaymentMethod ID',
-                                             required: true
+                required: true
           param :notes, String, desc: 'Notes'
           param :instant, :bool, desc: 'Instant'
           param :datetime_at, DateTime,
@@ -34,7 +34,10 @@ module Api
         ## Description
         Bookings of current user
       EOS
+      param :status, %w(pending accepted expired refused completed canceled
+                        rescheduled), desc: 'Status'
       example <<-EOS
+      User see:
       [
         {
           "id": 16,
@@ -53,10 +56,32 @@ module Api
           }
         }
       ]
+
+      Beautician see:
+      [
+        {
+          "id": 16,
+          "status": "pending",
+          "datetime_at": "2016-06-10T17:42:00.000+02:00",
+          "instant": false,
+          "items": "Manicure, Cut off",
+          "user": {
+            "id": 2,
+            "name": "Updated",
+            "surname": "Sername",
+            "rating": 1,
+            "profile_picture": {
+              "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+            }
+          }
+        }
+      ]
       EOS
 
       def index
-        @bookings = current_user.bookings
+        @bookings = current_user.beautician? ?
+            current_user.bookings_of_me : current_user.bookings
+        @bookings = @bookings.where(status: params[:status]) if params[:status]
         respond_with @bookings
       end
 
@@ -110,6 +135,7 @@ module Api
         Show Booking
       EOS
       example <<-EOS
+      User see:
       {
         "id": 16,
         "status": "accepted",
@@ -135,6 +161,38 @@ module Api
           "latitude": 38.3955836,
           "longitude": 27.092579,
           "country": "FR"
+        }
+      }
+
+      Beautician see:
+      {
+        "id": 16,
+        "status": "pending",
+        "user_id": 2,
+        "datetime_at": "2016-06-10T17:42:00.000+02:00",
+        "instant": false,
+        "items": "Manicure, Cut off",
+        "notes": "Test1",
+        "created_at": "2016-07-10T15:47:16.631+02:00",
+        "expires_at": "2016-07-11T15:47:16.640+02:00",
+        "address": {
+          "id": 74,
+          "street": "222",
+          "postcode": 111,
+          "city": "333",
+          "state": "444",
+          "latitude": 38.3955836,
+          "longitude": 27.092579,
+          "country": "FR"
+        },
+        "user": {
+          "id": 2,
+          "name": "Updated",
+          "surname": "Sername",
+          "rating": 1,
+          "profile_picture": {
+            "s70": "https://beautyapp-development.s3.amazonaws.com/uploads/user/profile_picture/2/s70_file.jpeg"
+          }
         }
       }
       EOS
@@ -182,7 +240,7 @@ module Api
 
       def last_unreviewed
         @booking = current_user.bookings.order(created_at: :asc).where
-                               .not(id: Review.all.pluck(:booking_id)).first
+                       .not(id: Review.all.pluck(:booking_id)).first
         head(:not_found) && return unless @booking
         respond_with @booking
       end
@@ -277,11 +335,11 @@ module Api
 
       def booking_params
         params.require(:booking)
-              .permit(:beautician_id, :payment_method_id, :notes, :instant,
-                      :datetime_at,
-                      service_ids: [], address_attributes: [:postcode, :street,
-                                                            :city, :state,
-                                                            :country])
+            .permit(:beautician_id, :payment_method_id, :notes, :instant,
+                    :datetime_at,
+                    service_ids: [], address_attributes: [:postcode, :street,
+                                                          :city, :state,
+                                                          :country])
       end
 
       def set_booking

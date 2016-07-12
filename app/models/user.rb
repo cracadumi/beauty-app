@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   has_many :services, dependent: :destroy
   has_many :categories, through: :services
   has_many :bookings, dependent: :destroy
+  has_many :bookings_of_me, dependent: :destroy, class_name: 'Booking',
+           foreign_key: 'beautician_id'
   has_many :payment_methods, dependent: :destroy
   has_many :reviews_of_me, dependent: :destroy, class_name: 'Review',
            foreign_key: 'user_id'
