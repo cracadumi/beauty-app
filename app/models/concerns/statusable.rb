@@ -38,7 +38,7 @@ module Statusable
         transitions from: :pending, to: :refused
       end
       event :complete do
-        transitions from: :accepted, to: :refused
+        transitions from: :accepted, to: :completed
       end
       event :cancel do
         transitions from: [:pending, :accepted, :rescheduled], to: :canceled,

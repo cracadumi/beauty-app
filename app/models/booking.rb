@@ -49,6 +49,15 @@ class Booking < ActiveRecord::Base
   def future_event?
     instant? || datetime_at > Time.zone.now
   end
+
+  def may_check_in?
+    accepted? && datetime_at + 1.hour > Time.zone.now
+  end
+
+  def check_in!
+    update_attribute :checked_in, true
+    complete!
+  end
 end
 
 # == Schema Information

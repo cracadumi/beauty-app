@@ -46,8 +46,11 @@ class Ability
       can [:read, :last_unreviewed, :cancel], Booking do |booking|
         booking.user == user || booking.beautician == user
       end
-      can [:accept, :reschedule], Booking do |booking|
+      can [:accept, :reschedule, :refuse], Booking do |booking|
         booking.beautician == user && booking.pending?
+      end
+      can :check_in, Booking do |booking|
+        booking.beautician == user && booking.accepted?
       end
       can :accept, Booking do |booking|
         booking.user == user && booking.rescheduled?

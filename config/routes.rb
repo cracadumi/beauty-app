@@ -48,6 +48,8 @@ Rails.application.routes.draw do
           put :cancel
           put :accept
           put :reschedule
+          put :refuse
+          put :check_in
         end
         collection do
           get :last_unreviewed

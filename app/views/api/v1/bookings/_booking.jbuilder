@@ -1,5 +1,5 @@
 json.extract! booking, :id, :status, :user_id, :datetime_at, :instant, :items,
-              :notes, :created_at, :expires_at
+              :notes, :created_at, :expires_at, :reschedule_at
 
 json.address do
   json.partial! booking.address
