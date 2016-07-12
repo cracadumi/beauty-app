@@ -43,7 +43,8 @@ module Api
       EOS
 
       def index
-        @reviews = current_user.reviews
+        @reviews = current_user.beautician? ?
+            current_user.reviews_of_me : current_user.reviews
         respond_with @reviews
       end
 
