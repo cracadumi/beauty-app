@@ -10,10 +10,10 @@ module Api
         short 'Review'
       end
 
-      api :GET, '/v1/reviews', 'Reviews current user left'
+      api :GET, '/v1/reviews', 'Reviews current user left (for user) or beautician received (for beautician)'
       description <<-EOS
         ## Description
-        Reviews current user left
+        Reviews current user left (for user) or beautician received (for beautician)
       EOS
       example <<-EOS
       [
