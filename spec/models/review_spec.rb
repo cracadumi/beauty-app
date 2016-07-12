@@ -2,22 +2,15 @@ require 'rails_helper'
 
 describe Review, type: :model do
   let(:user) { create :user }
-  let(:author) { create :user }
   let(:beautician) { create :user }
   let(:service) { create :service }
   let(:booking) do
     create :booking, user: user, beautician: beautician, services: [service]
   end
-  subject { build :review, user: user, booking: booking, author: author }
+  subject { build :review, booking: booking, author: beautician }
 
   it 'is valid' do
     expect(subject).to be_valid
-  end
-
-  it 'not valid without user' do
-    subject.user = nil
-
-    expect(subject).not_to be_valid
   end
 
   it 'not valid without booking' do
@@ -30,6 +23,14 @@ describe Review, type: :model do
     subject.author = nil
 
     expect(subject).not_to be_valid
+  end
+
+  it 'automatically set user' do
+    subject.save
+
+    result = subject.user
+
+    expect(result).to eq(user)
   end
 end
 
