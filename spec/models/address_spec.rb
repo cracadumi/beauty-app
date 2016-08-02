@@ -18,8 +18,18 @@ describe Address, type: :model do
   describe '#display_name' do
     let(:address) { create :address, addressable: settings_beautician }
     subject { address.display_name }
+
     it 'return string with address' do
       expect(subject).to eq('650055, Lenina, Kemerovo, KO')
+    end
+  end
+
+  describe '#coordinates' do
+    let(:address) { create :address, addressable: settings_beautician }
+    subject { address.coordinates }
+
+    it 'return string with coordinates' do
+      expect(subject).to eq('52.12312312, 36.3423432')
     end
   end
 end
