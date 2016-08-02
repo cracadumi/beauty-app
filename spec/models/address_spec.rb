@@ -14,6 +14,14 @@ describe Address, type: :model do
 
     expect(subject).not_to be_valid
   end
+
+  describe '#display_name' do
+    let(:address) { create :address, addressable: settings_beautician }
+    subject { address.display_name }
+    it 'return string with address' do
+      expect(subject).to eq('650055, Lenina, Kemerovo, KO')
+    end
+  end
 end
 
 # rubocop:disable Metrics/LineLength
