@@ -15,6 +15,30 @@ describe Address, type: :model do
     expect(subject).not_to be_valid
   end
 
+  it 'not valid without street' do
+    subject.street = nil
+
+    expect(subject).not_to be_valid
+  end
+
+  it 'not valid without postcode' do
+    subject.postcode = nil
+
+    expect(subject).not_to be_valid
+  end
+
+  it 'not valid without city' do
+    subject.city = nil
+
+    expect(subject).not_to be_valid
+  end
+
+  it 'not valid without country' do
+    subject.country = nil
+
+    expect(subject).not_to be_valid
+  end
+
   describe '#display_name' do
     let(:address) { create :address, addressable: settings_beautician }
     subject { address.display_name }
