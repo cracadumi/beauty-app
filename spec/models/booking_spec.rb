@@ -29,6 +29,54 @@ describe Booking, type: :model do
 
     expect(subject).not_to be_valid
   end
+
+  describe '#check_already_booked' do
+    context 'user doesn\'t have a pending booking with the beautician' do
+      let(:other_beautician) { create :user }
+      let(:booking) do
+        build :booking, user: user, beautician: other_beautician,
+              services: [service]
+      end
+      subject { booking.check_already_booked }
+
+      it 'return nil' do
+        expect(subject).to be_nil
+      end
+
+      it 'don\'t add an error' do
+        subject
+
+        result = booking.errors
+
+        expect(result).to be_empty
+      end
+    end
+
+    context 'user already has a pending booking with the beautician' do
+      let(:other_beautician) { create :user }
+      let!(:old_booking) do
+        create :booking, user: user, beautician: other_beautician,
+               services: [service]
+      end
+      let(:booking) do
+        build :booking, user: user, beautician: other_beautician,
+              services: [service]
+      end
+      subject { booking.check_already_booked }
+
+      it 'return false' do
+        expect(subject).to be false
+      end
+
+      it 'add an error' do
+        subject
+
+        result = booking.errors.include?(:base)
+
+        expect(result).to be true
+      end
+    end
+  end
 end
 
 # == Schema Information
