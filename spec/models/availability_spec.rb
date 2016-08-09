@@ -9,7 +9,7 @@ describe Availability, type: :model do
     expect(subject).to be_valid
   end
 
-  describe 'day uniqness validation' do
+  describe 'day uniqueness validation' do
     let(:other_user) { create :user }
     let(:other_settings_beautician) do
       create :settings_beautician, user: other_user
