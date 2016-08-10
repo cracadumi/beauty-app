@@ -3,7 +3,7 @@ json.extract! booking, :id, :status, :user_id, :datetime_at, :instant, :items,
 
 json.address do
   json.partial! booking.address
-end
+end if booking.address
 
 if current_user == booking.user
   json.beautician do
