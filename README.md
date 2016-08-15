@@ -1,5 +1,5 @@
-Geoconfess
-==========
+Beautyapp
+=========
 
 # Users' credentials
 
